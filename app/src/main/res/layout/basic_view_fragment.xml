@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:orientation="vertical" >
+
+	<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:text="@string/textStateOnDate"
+			android:id="@+id/textStateOnDate"
+			android:layout_alignParentTop="true" android:layout_centerHorizontal="true"
+			android:layout_marginTop="24dp"/>
+	<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:text="@string/valueStateOnDate"
+			android:id="@+id/valueStateOnDate"
+			android:layout_below="@+id/textStateOnDate" android:layout_centerHorizontal="true"/>
+	<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:text="@string/textTemperature"
+			android:id="@+id/textTemperature"
+			android:layout_marginTop="24dp" android:layout_below="@+id/valueStateOnDate"
+			android:layout_alignLeft="@+id/textStateOnDate" android:layout_alignStart="@+id/textStateOnDate"/>
+	<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:text="@string/valueTemperature"
+			android:id="@+id/valueTemperature"
+			android:layout_alignTop="@+id/textTemperature" android:layout_centerHorizontal="true"/>
+	<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:text="@string/textEnergy"
+			android:id="@+id/textEnergy" android:layout_below="@+id/textTemperature"
+			android:layout_alignLeft="@+id/textTemperature" android:layout_alignStart="@+id/textTemperature"
+			android:layout_marginTop="26dp"/>
+	<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:text="@string/valueEnergy"
+			android:id="@+id/valueEnergy"
+			android:layout_alignTop="@+id/textEnergy" android:layout_alignLeft="@+id/valueTemperature"
+			android:layout_alignStart="@+id/valueTemperature"/>
+	<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:text="@string/textBattery"
+			android:id="@+id/textBattery" android:layout_below="@+id/textEnergy" android:layout_alignLeft="@+id/textEnergy"
+			android:layout_alignStart="@+id/textEnergy" android:layout_marginTop="36dp"/>
+	<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:text="@string/valueBattery"
+			android:id="@+id/valueBattery"
+			android:layout_alignTop="@+id/textBattery" android:layout_toRightOf="@+id/valueStateOnDate"
+			android:layout_toEndOf="@+id/valueStateOnDate"/>
+	<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:text="@string/textRelay4"
+			android:id="@+id/textRelay4" android:layout_centerVertical="true" android:layout_alignLeft="@+id/textBattery"
+			android:layout_alignStart="@+id/textBattery"/>
+	<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:text="@string/textRelay5"
+			android:id="@+id/textRelay5"
+			android:layout_alignTop="@+id/textRelay4" android:layout_centerHorizontal="true"/>
+	<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:text="@string/textRelay6"
+			android:id="@+id/textRelay6"
+			android:layout_alignTop="@+id/textRelay5" android:layout_alignRight="@+id/textStateOnDate"
+			android:layout_alignEnd="@+id/textStateOnDate"/>
+	<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:text="@string/valueRelay4"
+			android:id="@+id/valueRelay4"
+			android:layout_marginTop="26dp" android:layout_below="@+id/textRelay4"
+			android:layout_alignLeft="@+id/textRelay4" android:layout_alignStart="@+id/textRelay4"/>
+	<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:text="@string/valueRelay6"
+			android:id="@+id/valueRelay6" android:layout_alignBottom="@+id/valueRelay4"
+			android:layout_alignLeft="@+id/textRelay6" android:layout_alignStart="@+id/textRelay6"/>
+	<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:text="@string/valueRelay5"
+			android:id="@+id/valueRelay5"
+			android:layout_alignTop="@+id/valueRelay6" android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>

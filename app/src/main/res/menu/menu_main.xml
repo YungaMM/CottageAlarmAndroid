@@ -1,0 +1,25 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context=".MainActivity">
+
+    <item android:id="@+id/item_phone_alarm"
+          android:title="@string/item_phone_alarm"
+          android:orderInCategory="0"
+          app:showAsAction="never"/>
+
+    <item android:id="@+id/item_phone_user"
+          android:title="@string/item_phone_user"
+          android:orderInCategory="1"
+          app:showAsAction="never"/>
+
+    <item android:id="@+id/item_set_date_alarm"
+          android:title="@string/item_set_date_alarm"
+          android:orderInCategory="2"
+          app:showAsAction="never"/>
+
+    <item android:id="@+id/item_set_limit_temperature"
+          android:title="@string/item_set_limit_temperature"
+          android:orderInCategory="3"
+          app:showAsAction="never"/>
+</menu>

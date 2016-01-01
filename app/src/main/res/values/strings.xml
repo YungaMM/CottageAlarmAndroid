@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Cottage Alarm</string>
+
+    <string name="item_phone_alarm">Номер телефона устройства</string>
+    <string name="item_phone_user">Номера телефонов пользователя</string>
+    <string name="item_set_date_alarm">Установить дату/время устройства</string>
+    <string name="item_set_limit_temperature">Установить границы термометра</string>
+    <string name="pref_size">Размер шрифта</string>
+
+    <string name="stateAlarm">Состояние сигнализации</string>
+    <string name="managementRelay">Управление реле</string>
+    <string name="btnReloadSettings">Обновить данные</string>
+    <string name="textStateOnDate">Состояние сигнализации на дату:</string>
+    <string name="valueStateOnDate">01.01.2016</string>
+    <string name="textTemperature">Температура</string>
+    <string name="valueTemperature">C</string>
+    <string name="textEnergy">Питание</string>
+    <string name="valueEnergy">OK</string>
+    <string name="textBattery">Состояние батареи</string>
+    <string name="valueBattery">B</string>
+    <string name="textRelay4">Реле 4</string>
+    <string name="textRelay6">Реле 6</string>
+    <string name="textRelay5">Реле 5</string>
+    <string name="valueRelay4">Вкл</string>
+    <string name="valueRelay6">Выкл</string>
+    <string name="valueRelay5">Выкл</string>
+    <string name="text_phone_alarm">Номер телефона</string>
+    <string name="value_phone_alarm"></string>
+    <string name="title_phone_alarm">Введите номер телефона устройства в формате +7...</string>
+    <string name="btn_date_time_device">Применить</string>
+    <string name="title_set_date_time">Установить время и дату устройства</string>
+    <string name="title_setting_user_phones_list">Выбирете строку для ввода номера телефона</string>
+    <string name="textInputPhone">Номер телефона</string>
+    <string name="text_notification_type">Выберите тип оповещения</string>
+    <string name="text_btn_set_user_phone">Применить</string>
+
+</resources>
