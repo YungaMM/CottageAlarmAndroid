@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="nameUserPhoneOptions">
+        <item>Тревога по ЗОНе 1</item>
+        <item>Тревога по ЗОНе 2</item>
+        <item>Тревога по ЗОНе 3</item>
+        <item>Постановка на охрану</item>
+        <item>Снятие с охраны</item>
+        <item>Изменение основного питания</item>
+        <item>Сижение баланса сим карты ниже критического значения</item>
+    </string-array>
+
+    <string-array name="userPhoneOptions">
+        <item>Нет оповещения смс и звонком</item>
+        <item>Оповещение только звонком с голосовым сообщением</item>
+        <item>Оповещение только смс сообщением</item>
+        <item>Оповещение смс сообщением и звонком с голосовым сообщением</item>
+    </string-array>
+</resources>
