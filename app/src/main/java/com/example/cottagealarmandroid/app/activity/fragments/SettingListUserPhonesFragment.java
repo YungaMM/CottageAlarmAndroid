@@ -26,16 +26,6 @@ public class SettingListUserPhonesFragment extends FragmentActivity implements A
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_user_phones);
 
-        usPhones = DevicesAlarm.getInstance().getBasicAlarmProperty().getUserPhones();
-        phoneList = setMapPhones(usPhones);
-
-        listPhones = (ListView) findViewById(R.id.listUserPhones);
-        listAdapter = new SimpleAdapter(this, phoneList, R.layout.item_list_user_phones,
-                new String[]{"count", "phone"},
-                new int[]{R.id.showCountPhone, R.id.showPhone});
-        listPhones.setAdapter(listAdapter);
-
-        listPhones.setOnItemClickListener(this);
     }
 
     private ArrayList<HashMap<String, String>> setMapPhones(final UserPhones[] userPhones) {
@@ -51,8 +41,26 @@ public class SettingListUserPhonesFragment extends FragmentActivity implements A
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        usPhones = DevicesAlarm.getInstance().getBasicAlarmProperty().getUserPhones();
+        phoneList = setMapPhones(usPhones);
+
+        listPhones = (ListView) findViewById(R.id.listUserPhones);
+        listAdapter = new SimpleAdapter(this, phoneList, R.layout.item_list_user_phones,
+                new String[]{"count", "phone"},
+                new int[]{R.id.showCountPhone, R.id.showPhone});
+        listPhones.setAdapter(listAdapter);
+
+        listPhones.setOnItemClickListener(this);
+    }
+
+    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        startActivity(new Intent(this, SetUserPhone.class));
+        Intent intent = new Intent(this, SetUserPhone.class);
+
+        intent.putExtra("phone",usPhones[position].getCount());
+        startActivity(intent);
 
         Toast.makeText(this, "Click phone" + position, Toast.LENGTH_SHORT).show();
     }

@@ -36,10 +36,14 @@
             android:layout_height="wrap_content"
             android:text="@string/text_btn_set_user_phone"
             android:id="@+id/btn_set_user_phone"
-            android:layout_alignParentBottom="true" android:layout_centerHorizontal="true"/>
+            android:onClick="onClick"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"/>
     <ExpandableListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/expandableListView"
-            android:layout_centerHorizontal="true" android:layout_below="@+id/text_notification_type"/>
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/text_notification_type"
+            android:layout_above="@+id/btn_set_user_phone"/>
 </RelativeLayout>

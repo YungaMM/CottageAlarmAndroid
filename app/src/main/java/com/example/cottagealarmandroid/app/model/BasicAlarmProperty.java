@@ -53,9 +53,10 @@ public class BasicAlarmProperty {
         return userPhones[count].getPhone();
     }
 
-//    public UserPhones getUserPhoneNumber(final int count) {
-//        return userPhones[count];
-//    }
+    public UserPhones getUserPhone(final int count) {
+        return userPhones[count];
+    }
+
     public UserPhones[] getUserPhones(){return userPhones;}
 
     public String[] getStringArrayPhones(){

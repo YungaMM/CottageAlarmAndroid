@@ -30,8 +30,8 @@ public class AdvancePreferences {
     private static SharedPreferences.Editor editor = null;
     private static Context context = null;
 
-    public static void init(Context cntxt) {
-        context = cntxt;
+    public static void init(Context context) {
+        AdvancePreferences.context = context;
     }
 
     private static void init() {

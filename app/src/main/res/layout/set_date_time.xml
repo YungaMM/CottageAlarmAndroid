@@ -9,7 +9,9 @@
             android:layout_height="wrap_content"
             android:text="@string/btn_date_time_device"
             android:id="@+id/btn_date_time_device"
-            android:layout_marginBottom="49dp" android:onClick="onClick" android:layout_alignParentBottom="true"
+            android:layout_marginBottom="49dp"
+            android:onClick="onClick"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"/>
     <TimePicker
             android:layout_width="wrap_content"
