@@ -7,7 +7,7 @@ public class UserPhones {
 
     private final int count;
     private String phone = "";
-    private String[] option = {"1", "1", "1", "1", "1", "1", "1"};
+    private String[] option = {"0", "0", "0", "0", "0", "2", "0"};
 
     public UserPhones() {
         this.count = 0;
@@ -40,12 +40,26 @@ public class UserPhones {
         return option;
     }
 
+    public String getOptionString (){
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < option.length ; i++) {
+            result.append(option[i]);
+        }
+        return result.toString();
+    }
+
     public String getOptionOnCount(final int count){
         return option[count];
     }
 
     public void setOption(String[] option) {
         this.option = option;
+    }
+
+    public void setOptionFromString(final String option){
+        for (int i = 0; i < option.length(); i++) {
+            this.option[i] = String.valueOf(option.charAt(i));
+        }
     }
 
     public int getCount() {

@@ -6,9 +6,7 @@ import android.content.SharedPreferences;
 import com.example.cottagealarmandroid.app.model.*;
 
 import java.io.FileNotFoundException;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class AdvancePreferences {
     public static final String APP_FILE_PREFS = "alarmsettings";
@@ -62,10 +60,11 @@ public class AdvancePreferences {
         if (settings == null) {
             init();
         }
-        Set<String> result = new HashSet<>();
+        Set<String> result = new TreeSet<>();
         for (int i = 0; i <value.length ; i++) {
             result.add(value[i]);
         }
+
         editor.putStringSet(name, result);
         editor.commit();
     }

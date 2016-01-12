@@ -5,9 +5,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.BaseExpandableListAdapter;
+import android.widget.TextView;
 import com.example.cottagealarmandroid.app.R;
-import com.example.cottagealarmandroid.app.controllers.DevicesAlarm;
 import com.example.cottagealarmandroid.app.model.UserPhones;
 
 import java.util.ArrayList;
@@ -32,21 +32,17 @@ public class MyExpListAdapter extends BaseExpandableListAdapter {
         mGroups = setmGroups();
     }
 
-    private ArrayList<ArrayList<String>> setmGroups() {
-        ArrayList<ArrayList<String>> groups = new ArrayList<>();
-        ArrayList<String> child = new ArrayList<>();
 
-        for (int i = 0; i < mChildStr.length; i++) {
-            child.add(mChildStr[i]);
-        }
+    public void setOption(final int count, final String option){
+        this.mOptionStr[count] = option;
+    }
 
-        for (int i = 0; i < mGroupsStr.length; i++) {
-            groups.add(child);
-            int option = Integer.valueOf(userPhone.getOptionOnCount(i));
-            mOptionStr[i] = mChildStr[option];
-        }
+    public String[] getmOptionStr() {
+        return mOptionStr;
+    }
 
-        return groups;
+    public void setmOptionStr(String[] mOptionStr) {
+        this.mOptionStr = mOptionStr;
     }
 
     @Override
@@ -119,13 +115,15 @@ public class MyExpListAdapter extends BaseExpandableListAdapter {
         final TextView textChild = (TextView) convertView.findViewById(android.R.id.text1);
         textChild.setText(mGroups.get(groupPosition).get(childPosition));
 
-        textChild.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mOptionStr[groupPosition] = String.valueOf(textChild.getText());
-                userPhone.setOption(groupPosition,String.valueOf(childPosition));
-            }
-        });
+//        textChild.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mOptionStr[groupPosition] = String.valueOf(textChild.getText());
+//                userPhone.setOption(groupPosition,String.valueOf(childPosition));
+//            }
+//        });
+//
+//        this.onGroupCollapsed(groupPosition);
 
         return convertView;
     }
@@ -135,4 +133,20 @@ public class MyExpListAdapter extends BaseExpandableListAdapter {
         return true;
     }
 
+    private ArrayList<ArrayList<String>> setmGroups() {
+        ArrayList<ArrayList<String>> groups = new ArrayList<>();
+        ArrayList<String> child = new ArrayList<>();
+
+        for (int i = 0; i < mChildStr.length; i++) {
+            child.add(mChildStr[i]);
+        }
+
+        for (int i = 0; i < mGroupsStr.length; i++) {
+            groups.add(child);
+            int option = Integer.valueOf(userPhone.getOptionOnCount(i));
+            mOptionStr[i] = mChildStr[option];
+        }
+
+        return groups;
+    }
 }

@@ -27,6 +27,7 @@ public class BasicAlarmProperty {
         for (int i = 0; i < userPhones.length ; i++) {
             userPhones[i] = new UserPhones(i,"");
             userPhones[i].setPhone(AdvancePreferences.getProperty(userPhones[i].NAME_PREFS_USER_PHONE));
+            userPhones[i].setOptionFromString(AdvancePreferences.getProperty(userPhones[i].NAME_PREFS_OPTIONS));
         }
     }
 
