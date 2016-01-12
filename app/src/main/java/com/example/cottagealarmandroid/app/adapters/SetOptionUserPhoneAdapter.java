@@ -2,15 +2,18 @@ package com.example.cottagealarmandroid.app.adapters;
 
 
 import android.content.Context;
-import android.widget.ExpandableListView;
-import android.widget.SimpleExpandableListAdapter;
+import android.text.Layout;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.*;
 import com.example.cottagealarmandroid.app.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SetOptionUserPhoneAdapter {
+public class SetOptionUserPhoneAdapter extends BaseExpandableListAdapter {
     final String GROUP_NAME = "groupName";
     final String CHILD_NAME = "childName";
 
@@ -74,10 +77,12 @@ public class SetOptionUserPhoneAdapter {
         // список ID view-элементов, в которые будет помещены аттрибуты элементов
         int childTo[] = new int[] {android.R.id.text1};
 
+       // Layout optUserPhone = R.layout.option_user_phone;
+
         adapter = new SimpleExpandableListAdapter(
                 context,
                 groupData,
-                android.R.layout.simple_expandable_list_item_1,
+                R.layout.option_user_phone,
                 groupFrom,
                 groupTo,
                 childData,
@@ -88,17 +93,87 @@ public class SetOptionUserPhoneAdapter {
         return adapter;
     }
 
-    String getGroupText(int groupPos) {
+    public String getGroupText(int groupPos) {
         return ((Map<String,String>)(adapter.getGroup(groupPos))).get(GROUP_NAME);
     }
 
-    String getChildText(int groupPos, int childPos) {
+    public String getChildText(int groupPos, int childPos) {
         return ((Map<String,String>)(adapter.getChild(groupPos, childPos))).get(CHILD_NAME);
     }
 
-    String getGroupChildText(int groupPos, int childPos) {
+    public String getGroupChildText(int groupPos, int childPos) {
         return getGroupText(groupPos) + " " +  getChildText(groupPos, childPos);
     }
 
+
+    @Override
+    public int getGroupCount() {
+        return 0;
+    }
+
+    @Override
+    public int getChildrenCount(int groupPosition) {
+        return 0;
+    }
+
+    @Override
+    public Object getGroup(int groupPosition) {
+        return null;
+    }
+
+    @Override
+    public Object getChild(int groupPosition, int childPosition) {
+        return null;
+    }
+
+    @Override
+    public long getGroupId(int groupPosition) {
+        return 0;
+    }
+
+    @Override
+    public long getChildId(int groupPosition, int childPosition) {
+        return 0;
+    }
+
+    @Override
+    public boolean hasStableIds() {
+        return false;
+    }
+
+    @Override
+    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+        if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.option_user_phone, null);
+        }
+
+        if (isExpanded){
+            //Изменяем что-нибудь, если текущая Group раскрыта
+        }
+        else{
+            //Изменяем что-нибудь, если текущая Group скрыта
+        }
+
+        TextView textGroupName = (TextView) convertView.findViewById(R.id.textGroupName);
+        TextView textChildName = (TextView) convertView.findViewById(R.id.textChildName);
+
+        textGroupName.setText(getGroupText(groupPosition));
+        textChildName.setText("Ghbdtnhvh");
+//        textGroupName.setText("Group " + Integer.toString(groupPosition));
+
+        return convertView;
+    }
+
+    @Override
+    public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
+                             View convertView, ViewGroup parent) {
+       return null;
+    }
+
+    @Override
+    public boolean isChildSelectable(int groupPosition, int childPosition) {
+        return false;
+    }
 
 }

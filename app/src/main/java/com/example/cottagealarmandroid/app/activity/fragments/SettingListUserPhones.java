@@ -13,7 +13,8 @@ import com.example.cottagealarmandroid.app.model.UserPhones;
 
 import java.util.*;
 
-public class SettingListUserPhonesFragment extends FragmentActivity implements AdapterView.OnItemClickListener {
+public class SettingListUserPhones extends FragmentActivity
+        implements AdapterView.OnItemClickListener {
 
     private ListView listPhones;
 

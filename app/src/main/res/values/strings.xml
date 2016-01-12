@@ -33,5 +33,7 @@
     <string name="textInputPhone">Номер телефона</string>
     <string name="text_notification_type">Выберите тип оповещения</string>
     <string name="text_btn_set_user_phone">Применить</string>
+    <string name="textGroupName">Название группы</string>
+    <string name="textChildName">Выбранный элемент</string>
 
 </resources>

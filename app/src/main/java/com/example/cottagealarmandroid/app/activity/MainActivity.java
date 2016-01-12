@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 new EnterPhoneAlarmFragment().show(getSupportFragmentManager(), "PhoneAlarm");
                 return true;
             case R.id.item_phone_user:
-                startActivity(new Intent(this, SettingListUserPhonesFragment.class));
+                startActivity(new Intent(this, SettingListUserPhones.class));
                 Toast.makeText(this, "Phone user", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.item_set_date_alarm:

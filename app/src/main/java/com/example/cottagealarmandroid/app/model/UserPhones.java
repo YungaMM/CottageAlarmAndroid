@@ -40,12 +40,20 @@ public class UserPhones {
         return option;
     }
 
+    public String getOptionOnCount(final int count){
+        return option[count];
+    }
+
     public void setOption(String[] option) {
         this.option = option;
     }
 
     public int getCount() {
         return count;
+    }
+
+    public void setOption(final int count, final String option){
+        this.option[count] = option;
     }
 }
 

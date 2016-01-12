@@ -9,13 +9,14 @@ import android.widget.ExpandableListView;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.Toast;
 import com.example.cottagealarmandroid.app.R;
+import com.example.cottagealarmandroid.app.adapters.MyExpListAdapter;
 import com.example.cottagealarmandroid.app.adapters.SetOptionUserPhoneAdapter;
 import com.example.cottagealarmandroid.app.controllers.AdvancePreferences;
 import com.example.cottagealarmandroid.app.controllers.DevicesAlarm;
 import com.example.cottagealarmandroid.app.model.UserPhones;
 
 
-public class SetUserPhone extends FragmentActivity implements View.OnClickListener {
+public class SetUserPhone extends FragmentActivity implements View.OnClickListener{
     private EditText phone;
     private ExpandableListView expListView;
 
@@ -38,11 +39,16 @@ public class SetUserPhone extends FragmentActivity implements View.OnClickListen
 
         phone.setText(userPhone.getPhone());
 
-        setOptPhoneAdapter = new SetOptionUserPhoneAdapter(this);
-        adapter = setOptPhoneAdapter.getAdapter();
-
+        MyExpListAdapter myAdapter = new MyExpListAdapter(this, userPhone);
         expListView = (ExpandableListView) findViewById(R.id.expandableListView);
-        expListView.setAdapter(adapter);
+        expListView.setAdapter(myAdapter);
+
+//        setOptPhoneAdapter = new SetOptionUserPhoneAdapter(this);
+//        adapter = setOptPhoneAdapter.getAdapter();
+//
+//        expListView = (ExpandableListView) findViewById(R.id.expandableListView);
+//        expListView.setAdapter(adapter);
+       // expListView.setIndicatorBounds(300,200);
 
     }
 
@@ -60,4 +66,5 @@ public class SetUserPhone extends FragmentActivity implements View.OnClickListen
         finish();
 
     }
+
 }
