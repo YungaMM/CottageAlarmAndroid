@@ -15,15 +15,13 @@ import com.example.cottagealarmandroid.app.controllers.DevicesAlarm;
 import com.example.cottagealarmandroid.app.model.UserPhones;
 
 
-public class SetUserPhone extends FragmentActivity implements View.OnClickListener{
+public class SetUserPhone extends FragmentActivity implements View.OnClickListener {
     private EditText phone;
     private ExpandableListView expListView;
 
     private DevicesAlarm devicesAlarm;
     private UserPhones userPhone;
 
-    private SetOptionUserPhoneAdapter setOptPhoneAdapter;
-    private SimpleExpandableListAdapter adapter;
     private int countPhone;
 
     @Override
@@ -43,27 +41,44 @@ public class SetUserPhone extends FragmentActivity implements View.OnClickListen
 
         expListView = (ExpandableListView) findViewById(R.id.expandableListView);
         expListView.setAdapter(adapter);
+        expListListener(adapter);
 
-// узнаем размеры экрана из класса Display
+
+    }
+
+    private void expListListener (final MyExpListAdapter adapter){
+        //Устанавливаем индикатор группы вправо
+        // узнаем размеры экрана из класса Display
         Display display = getWindowManager().getDefaultDisplay();
         DisplayMetrics metricsB = new DisplayMetrics();
         display.getMetrics(metricsB);
-
-        expListView.setIndicatorBounds(0,metricsB.widthPixels);
+        int width = metricsB.widthPixels;
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            expListView.setIndicatorBounds(width - GetPixelFromDips(50), width - GetPixelFromDips(10));
+        } else {
+            expListView.setIndicatorBoundsRelative(width - GetPixelFromDips(50), width - GetPixelFromDips(10));
+        }
 
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition,
                                         int childPosition, long id) {
                 TextView textOption = (TextView) v.findViewById(android.R.id.text1);
-                adapter.setOption(groupPosition,String.valueOf(textOption.getText()));
-                userPhone.setOption(groupPosition,String.valueOf(childPosition));
+                adapter.setOption(groupPosition, String.valueOf(textOption.getText()));
+                userPhone.setOption(groupPosition, String.valueOf(childPosition));
                 expListView.collapseGroup(groupPosition);
 
                 return false;
             }
-        } );
+        });
 
+    }
+
+    private int GetPixelFromDips(float pixels) {
+        // Get the screen's density scale
+        final float scale = getResources().getDisplayMetrics().density;
+        // Convert the dps to pixels, based on density scale
+        return (int) (pixels * scale + 0.5f);
     }
 
     @Override
