@@ -16,10 +16,6 @@ import java.util.*;
 public class SettingListUserPhones extends FragmentActivity
         implements AdapterView.OnItemClickListener, View.OnClickListener {
 
-    private ListView listPhones;
-
-    private ListAdapter listAdapter;
-    private ArrayList<HashMap<String, String>> phoneList;
     private UserPhones[] usPhones;
 
     @Override
@@ -32,10 +28,10 @@ public class SettingListUserPhones extends FragmentActivity
     private ArrayList<HashMap<String, String>> setMapPhones(final UserPhones[] userPhones) {
         ArrayList<HashMap<String, String>> result = new ArrayList<>();
         HashMap<String, String> map;
-        for (int i = 0; i < userPhones.length; i++) {
+        for (UserPhones userPhone : userPhones) {
             map = new HashMap<>();
-            map.put("count", String.valueOf(userPhones[i].getCount() + 1) + ".");
-            map.put("phone", userPhones[i].getPhone());
+            map.put("count", String.valueOf(userPhone.getCount() + 1) + ".");
+            map.put("phone", userPhone.getPhone());
             result.add(map);
         }
         return result;
@@ -45,10 +41,10 @@ public class SettingListUserPhones extends FragmentActivity
     protected void onResume() {
         super.onResume();
         usPhones = DevicesAlarm.getInstance().getBasicAlarmProperty().getUserPhones();
-        phoneList = setMapPhones(usPhones);
+        ArrayList<HashMap<String, String>> phoneList = setMapPhones(usPhones);
 
-        listPhones = (ListView) findViewById(R.id.listUserPhones);
-        listAdapter = new SimpleAdapter(this, phoneList, R.layout.item_list_user_phones,
+        ListView listPhones = (ListView) findViewById(R.id.listUserPhones);
+        ListAdapter listAdapter = new SimpleAdapter(this, phoneList, R.layout.item_list_user_phones,
                 new String[]{"count", "phone"},
                 new int[]{R.id.showCountPhone, R.id.showPhone});
         listPhones.setAdapter(listAdapter);
