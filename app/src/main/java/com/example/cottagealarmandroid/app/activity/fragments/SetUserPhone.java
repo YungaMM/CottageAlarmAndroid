@@ -46,7 +46,22 @@ public class SetUserPhone extends FragmentActivity implements View.OnClickListen
 
     }
 
-    private void expListListener (final MyExpListAdapter adapter){
+    @Override
+    public void onClick(View v) {
+        String str = phone.getText().toString();
+
+        devicesAlarm.basicAlarmProperty.setUserPhone(countPhone, str);
+
+        AdvancePreferences.addProperty(userPhone.NAME_PREFS_USER_PHONE, str);
+        AdvancePreferences.addProperty(userPhone.NAME_PREFS_OPTIONS, userPhone.getOptionString());
+
+        Toast.makeText(this, "Надо вставить обработку отправления СМС команды, " +
+                "а сохранение данных убрать. Телефоны пусть читает после входящей СМСки", Toast.LENGTH_LONG).show();
+
+        finish();
+    }
+
+    private void expListListener(final MyExpListAdapter adapter) {
         //Устанавливаем индикатор группы вправо
         // узнаем размеры экрана из класса Display
         Display display = getWindowManager().getDefaultDisplay();
@@ -81,18 +96,4 @@ public class SetUserPhone extends FragmentActivity implements View.OnClickListen
         return (int) (pixels * scale + 0.5f);
     }
 
-    @Override
-    public void onClick(View v) {
-        String str = phone.getText().toString();
-
-        devicesAlarm.basicAlarmProperty.setUserPhone(countPhone, str);
-
-        AdvancePreferences.addProperty(userPhone.NAME_PREFS_USER_PHONE, str);
-        AdvancePreferences.addProperty(userPhone.NAME_PREFS_OPTIONS, userPhone.getOptionString());
-
-        Toast.makeText(this, "Надо вставить обработку отправления СМС команды, " +
-                "а сохранение данных убрать. Телефоны пусть читает после входящей СМСки", Toast.LENGTH_LONG).show();
-
-        finish();
-    }
 }
