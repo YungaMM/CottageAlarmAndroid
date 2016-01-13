@@ -14,7 +14,7 @@ import com.example.cottagealarmandroid.app.model.UserPhones;
 import java.util.*;
 
 public class SettingListUserPhones extends FragmentActivity
-        implements AdapterView.OnItemClickListener {
+        implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     private ListView listPhones;
 
@@ -62,7 +62,10 @@ public class SettingListUserPhones extends FragmentActivity
 
         intent.putExtra("phone",usPhones[position].getCount());
         startActivity(intent);
+    }
 
-        Toast.makeText(this, "Click phone" + position, Toast.LENGTH_SHORT).show();
+    @Override
+    public void onClick(View v) {
+        finish();
     }
 }

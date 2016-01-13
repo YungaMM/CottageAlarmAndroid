@@ -17,10 +17,6 @@ import com.example.cottagealarmandroid.app.controllers.DevicesAlarm;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TabHost mTabHost;
-    private ViewPager mViewPager;
-    private TabsAdapter mTabsAdapter;
-
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,12 +31,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createTabs(final Bundle savedInstanceState) {
-        mTabHost = (TabHost) findViewById(android.R.id.tabhost);
+        TabHost mTabHost = (TabHost) findViewById(android.R.id.tabhost);
         mTabHost.setup();
 
-        mViewPager = (ViewPager) findViewById(R.id.pager);
+        ViewPager mViewPager = (ViewPager) findViewById(R.id.pager);
 
-        mTabsAdapter = new TabsAdapter(this, mTabHost, mViewPager);
+        TabsAdapter mTabsAdapter = new TabsAdapter(this, mTabHost, mViewPager);
 
         mTabsAdapter.addTab(mTabHost.newTabSpec("Основной экран")
                         .setIndicator(getString(R.string.stateAlarm))
@@ -74,10 +70,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.item_phone_user:
                 startActivity(new Intent(this, SettingListUserPhones.class));
-                Toast.makeText(this, "Phone user", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.item_set_date_alarm:
-                //Intent intent = new Intent(this, SetDateTimeFragment.class);
                 startActivity(new Intent(this, SetDateTimeFragment.class));
                 return true;
             case R.id.item_set_limit_temperature:

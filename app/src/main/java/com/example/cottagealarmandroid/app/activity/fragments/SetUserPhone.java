@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.*;
 import com.example.cottagealarmandroid.app.R;
 import com.example.cottagealarmandroid.app.adapters.MyExpListAdapter;
-import com.example.cottagealarmandroid.app.adapters.SetOptionUserPhoneAdapter;
 import com.example.cottagealarmandroid.app.controllers.AdvancePreferences;
 import com.example.cottagealarmandroid.app.controllers.DevicesAlarm;
 import com.example.cottagealarmandroid.app.model.UserPhones;
@@ -42,7 +41,6 @@ public class SetUserPhone extends FragmentActivity implements View.OnClickListen
         expListView = (ExpandableListView) findViewById(R.id.expandableListView);
         expListView.setAdapter(adapter);
         expListListener(adapter);
-
 
     }
 

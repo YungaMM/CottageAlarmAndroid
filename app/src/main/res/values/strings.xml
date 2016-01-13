@@ -35,5 +35,6 @@
     <string name="text_btn_set_user_phone">Применить</string>
     <string name="textGroupName">Название группы</string>
     <string name="textChildName">Выбранный элемент</string>
+    <string name="buttonOk">Ok</string>
 
 </resources>
