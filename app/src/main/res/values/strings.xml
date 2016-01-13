@@ -25,16 +25,26 @@
     <string name="valueRelay6">Выкл</string>
     <string name="valueRelay5">Выкл</string>
     <string name="text_phone_alarm">Номер телефона</string>
-    <string name="value_phone_alarm"></string>
-    <string name="title_phone_alarm">Введите номер телефона устройства в формате +7...</string>
-    <string name="btn_date_time_device">Применить</string>
+    <string name="value_phone_alarm"> </string>
+    <string name="title_phone_alarm">Введите номер телефона устройства в формате +7…</string>
     <string name="title_set_date_time">Установить время и дату устройства</string>
     <string name="title_setting_user_phones_list">Выбирете строку для ввода номера телефона</string>
     <string name="textInputPhone">Номер телефона</string>
     <string name="text_notification_type">Выберите тип оповещения</string>
-    <string name="text_btn_set_user_phone">Применить</string>
+    <string name="text_btn_apply">Применить</string>
     <string name="textGroupName">Название группы</string>
     <string name="textChildName">Выбранный элемент</string>
-    <string name="buttonOk">Ok</string>
+    <string name="buttonOk">OK</string>
+    <string name="btnRelay1">Реле 1</string>
+    <string name="btnRelay2">Реле 2</string>
+    <string name="btnRelay3">Реле 3</string>
+    <string name="btnRelay4">Реле 4</string>
+    <string name="btnRelay5">Реле 5</string>
+    <string name="btnRelay6">Реле 6</string>
+    <string name="textSetRelay">Установки РЕЛЕ</string>
+    <string name="textControlMode">Режим управления РЕЛЕ:</string>
+    <string name="textTimeStart">Время запуска</string>
+    <string name="textTimeEnd">Время выключения</string>
+    <string name="textModeControl">Выберете режим управления</string>
 
 </resources>

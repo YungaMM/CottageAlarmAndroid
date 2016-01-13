@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, SettingListUserPhones.class));
                 return true;
             case R.id.item_set_date_alarm:
-                startActivity(new Intent(this, SetDateTimeFragment.class));
+                startActivity(new Intent(this, SetDateTime.class));
                 return true;
             case R.id.item_set_limit_temperature:
                 Toast.makeText(this, "Limit temperature", Toast.LENGTH_SHORT).show();

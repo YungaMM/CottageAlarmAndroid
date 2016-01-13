@@ -13,7 +13,7 @@ import com.example.cottagealarmandroid.app.controllers.DevicesAlarm;
 import com.example.cottagealarmandroid.app.model.BasicAlarmProperty;
 
 
-public class SetDateTimeFragment extends FragmentActivity implements View.OnClickListener {
+public class SetDateTime extends FragmentActivity implements View.OnClickListener {
 
     private TimePicker tp;
     private DatePicker dp;

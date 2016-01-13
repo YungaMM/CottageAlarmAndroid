@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.fragments.SetDateTimeFragment"
+        <activity android:name=".activity.fragments.SetDateTime"
                   android:label="@string/title_set_date_time">
         </activity>
 

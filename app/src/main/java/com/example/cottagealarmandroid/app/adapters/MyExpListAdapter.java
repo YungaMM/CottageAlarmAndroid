@@ -86,7 +86,7 @@ public class MyExpListAdapter extends BaseExpandableListAdapter {
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.option_user_phone, null);
+            convertView = inflater.inflate(R.layout.option_user_phone_fragment, null);
         }
 
         if (isExpanded) {

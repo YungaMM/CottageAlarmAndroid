@@ -44,7 +44,7 @@ public class SettingListUserPhones extends FragmentActivity
         ArrayList<HashMap<String, String>> phoneList = setMapPhones(usPhones);
 
         ListView listPhones = (ListView) findViewById(R.id.listUserPhones);
-        ListAdapter listAdapter = new SimpleAdapter(this, phoneList, R.layout.item_list_user_phones,
+        ListAdapter listAdapter = new SimpleAdapter(this, phoneList, R.layout.item_list_user_phones_fragment,
                 new String[]{"count", "phone"},
                 new int[]{R.id.showCountPhone, R.id.showPhone});
         listPhones.setAdapter(listAdapter);

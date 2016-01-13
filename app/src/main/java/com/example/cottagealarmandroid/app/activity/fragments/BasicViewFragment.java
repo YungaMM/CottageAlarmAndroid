@@ -15,7 +15,7 @@ public class BasicViewFragment extends Fragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.basic_view_fragment, container, false);
+        View view = inflater.inflate(R.layout.basic_view, container, false);
 
         dateAlarm = (TextView) view.findViewById(R.id.valueStateOnDate);
 
