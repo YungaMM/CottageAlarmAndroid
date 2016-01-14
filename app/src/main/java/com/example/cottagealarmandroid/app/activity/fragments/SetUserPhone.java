@@ -66,8 +66,7 @@ public class SetUserPhone extends FragmentActivity implements View.OnClickListen
     }
 
     private void expListListener(final MyExpListAdapter adapter) {
-        //Устанавливаем индикатор группы вправо
-        adapter.setIndicatorRight(expListView, this);
+        adapter.setIndicatorGroupRight(expListView, this);
 
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override

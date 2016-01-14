@@ -44,7 +44,7 @@ public class MyExpListAdapter extends BaseExpandableListAdapter {
         this.mOptionStr = mOptionStr;
     }
 
-    public void setIndicatorRight(final ExpandableListView expListView, final Activity activity) {
+    public void setIndicatorGroupRight(final ExpandableListView expListView, final Activity activity) {
         //Устанавливаем индикатор группы вправо
         // узнаем размеры экрана из класса Display
         Display display = activity.getWindowManager().getDefaultDisplay();
