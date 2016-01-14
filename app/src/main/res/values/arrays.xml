@@ -17,7 +17,7 @@
         <item>Оповещение смс сообщением и звонком с голосовым сообщением</item>
     </string-array>
 
-    <string-array name="controlMode">
+    <string-array name="modeControl">
         <item>Выключить РЕЛЕ</item>
         <item>Включить РЕЛЕ на заданное время</item>
         <item>Режим - РЕВУН</item>

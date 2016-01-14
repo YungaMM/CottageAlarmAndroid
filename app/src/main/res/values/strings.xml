@@ -35,16 +35,22 @@
     <string name="textGroupName">Название группы</string>
     <string name="textChildName">Выбранный элемент</string>
     <string name="buttonOk">OK</string>
-    <string name="btnRelay1">Реле 1</string>
-    <string name="btnRelay2">Реле 2</string>
-    <string name="btnRelay3">Реле 3</string>
-    <string name="btnRelay4">Реле 4</string>
-    <string name="btnRelay5">Реле 5</string>
-    <string name="btnRelay6">Реле 6</string>
+
     <string name="textSetRelay">Установки РЕЛЕ</string>
     <string name="textControlMode">Режим управления РЕЛЕ:</string>
     <string name="textTimeStart">Время запуска</string>
     <string name="textTimeEnd">Время выключения</string>
     <string name="textModeControl">Выберете режим управления</string>
+    <string name="textDescription">Реле можно включить на заданное время по команде, посланной в СМС сообщении,
+        автоматически по любому выбранному событию (активный вход зоны,
+        звонок с выбранного номера телефона), или по команде из голосового меню
+        управления.
+        Если время включения 0 мин – 0 сек, то реле будет включено
+        постоянно, без отсчета времени включения.
+    </string>
+    <string name="textMinOn">Время включения (минуты), 0 – 59 сек</string>
+    <string name="textSecOn">Время выключения (минуты), 0 – 59 сек</string>
+    <string name="textTitle">Введите время включения РЕЛЕ.</string>
+    <string name="textModelControl">Режим управления</string>
 
 </resources>

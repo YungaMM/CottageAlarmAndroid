@@ -1,11 +1,12 @@
 package com.example.cottagealarmandroid.app.adapters;
 
 
+import android.app.Activity;
 import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.util.DisplayMetrics;
+import android.view.*;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
 import com.example.cottagealarmandroid.app.R;
 import com.example.cottagealarmandroid.app.model.UserPhones;
@@ -20,16 +21,14 @@ public class MyExpListAdapter extends BaseExpandableListAdapter {
     private String[] mOptionStr;
     private Context mContext;
 
-    private UserPhones userPhone;
-
-    public MyExpListAdapter(final Context context, final UserPhones userPhone) {
+    public MyExpListAdapter(final Context context, final String[] itemGroup,
+                            final String[] itemChild, final String[] existChildOption) {
         mContext = context;
-        this.userPhone = userPhone;
 
-        mGroupsStr = mContext.getResources().getStringArray(R.array.nameUserPhoneOptions);
-        mChildStr = mContext.getResources().getStringArray(R.array.userPhoneOptions);
+        mGroupsStr = itemGroup;
+        mChildStr = itemChild;
         mOptionStr = new String[mGroupsStr.length];
-        mGroups = setmGroups();
+        mGroups = setmGroups(existChildOption);
     }
 
 
@@ -44,6 +43,21 @@ public class MyExpListAdapter extends BaseExpandableListAdapter {
     public void setmOptionStr(String[] mOptionStr) {
         this.mOptionStr = mOptionStr;
     }
+
+    public void setIndicatorRight(final ExpandableListView expListView, final Activity activity) {
+        //Устанавливаем индикатор группы вправо
+        // узнаем размеры экрана из класса Display
+        Display display = activity.getWindowManager().getDefaultDisplay();
+        DisplayMetrics metricsB = new DisplayMetrics();
+        display.getMetrics(metricsB);
+        int width = metricsB.widthPixels;
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            expListView.setIndicatorBounds(width - GetPixelFromDips(50), width - GetPixelFromDips(10));
+        } else {
+            expListView.setIndicatorBoundsRelative(width - GetPixelFromDips(50), width - GetPixelFromDips(10));
+        }
+    }
+
 
     @Override
     public int getGroupCount() {
@@ -115,16 +129,6 @@ public class MyExpListAdapter extends BaseExpandableListAdapter {
         final TextView textChild = (TextView) convertView.findViewById(android.R.id.text1);
         textChild.setText(mGroups.get(groupPosition).get(childPosition));
 
-//        textChild.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mOptionStr[groupPosition] = String.valueOf(textChild.getText());
-//                userPhone.setOption(groupPosition,String.valueOf(childPosition));
-//            }
-//        });
-//
-//        this.onGroupCollapsed(groupPosition);
-
         return convertView;
     }
 
@@ -133,17 +137,24 @@ public class MyExpListAdapter extends BaseExpandableListAdapter {
         return true;
     }
 
-    private ArrayList<ArrayList<String>> setmGroups() {
+    private int GetPixelFromDips(float pixels) {
+        // Get the screen's density scale
+        final float scale = mContext.getResources().getDisplayMetrics().density;
+        // Convert the dps to pixels, based on density scale
+        return (int) (pixels * scale + 0.5f);
+    }
+
+    private ArrayList<ArrayList<String>> setmGroups(final String[] existChildOption) {
         ArrayList<ArrayList<String>> groups = new ArrayList<>();
         ArrayList<String> child = new ArrayList<>();
 
-        for (int i = 0; i < mChildStr.length; i++) {
-            child.add(mChildStr[i]);
+        for (String aMChildStr : mChildStr) {
+            child.add(aMChildStr);
         }
 
         for (int i = 0; i < mGroupsStr.length; i++) {
             groups.add(child);
-            int option = Integer.valueOf(userPhone.getOptionOnCount(i));
+            int option = Integer.valueOf(existChildOption[i]);
             mOptionStr[i] = mChildStr[option];
         }
 

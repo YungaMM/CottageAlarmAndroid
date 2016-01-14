@@ -3,10 +3,11 @@ package com.example.cottagealarmandroid.app.activity.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.View;
-import android.widget.*;
+import android.widget.EditText;
+import android.widget.ExpandableListView;
+import android.widget.TextView;
+import android.widget.Toast;
 import com.example.cottagealarmandroid.app.R;
 import com.example.cottagealarmandroid.app.adapters.MyExpListAdapter;
 import com.example.cottagealarmandroid.app.controllers.AdvancePreferences;
@@ -36,7 +37,12 @@ public class SetUserPhone extends FragmentActivity implements View.OnClickListen
         phone = (EditText) findViewById(R.id.valueInputPhone);
         phone.setText(userPhone.getPhone());
 
-        final MyExpListAdapter adapter = new MyExpListAdapter(this, userPhone);
+        String[] nameUserPhoneOptions = getResources().getStringArray(R.array.nameUserPhoneOptions);
+        String[] userPhoneOptions = getResources().getStringArray(R.array.userPhoneOptions);
+        String[] option = userPhone.getOption();
+
+        final MyExpListAdapter adapter = new MyExpListAdapter(this, nameUserPhoneOptions,
+                userPhoneOptions, option);
 
         expListView = (ExpandableListView) findViewById(R.id.expandableListView);
         expListView.setAdapter(adapter);
@@ -61,16 +67,7 @@ public class SetUserPhone extends FragmentActivity implements View.OnClickListen
 
     private void expListListener(final MyExpListAdapter adapter) {
         //Устанавливаем индикатор группы вправо
-        // узнаем размеры экрана из класса Display
-        Display display = getWindowManager().getDefaultDisplay();
-        DisplayMetrics metricsB = new DisplayMetrics();
-        display.getMetrics(metricsB);
-        int width = metricsB.widthPixels;
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            expListView.setIndicatorBounds(width - GetPixelFromDips(50), width - GetPixelFromDips(10));
-        } else {
-            expListView.setIndicatorBoundsRelative(width - GetPixelFromDips(50), width - GetPixelFromDips(10));
-        }
+        adapter.setIndicatorRight(expListView, this);
 
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
@@ -84,14 +81,5 @@ public class SetUserPhone extends FragmentActivity implements View.OnClickListen
                 return false;
             }
         });
-
     }
-
-    private int GetPixelFromDips(float pixels) {
-        // Get the screen's density scale
-        final float scale = getResources().getDisplayMetrics().density;
-        // Convert the dps to pixels, based on density scale
-        return (int) (pixels * scale + 0.5f);
-    }
-
 }

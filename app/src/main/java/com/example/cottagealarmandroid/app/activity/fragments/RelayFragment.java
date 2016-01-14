@@ -5,57 +5,51 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import com.example.cottagealarmandroid.app.R;
+import com.example.cottagealarmandroid.app.adapters.MyExpListAdapter;
+import com.example.cottagealarmandroid.app.controllers.DevicesAlarm;
+import com.example.cottagealarmandroid.app.model.Relay;
+
 
 public class RelayFragment extends Fragment implements View.OnClickListener{
 
-	private Button btnRelay1, btnRelay2, btnRelay3, btnRelay4, btnRelay5, btnRelay6;
+	private DevicesAlarm devicesAlarm;
+
+	String[] nameRelay, optionRelay;
 
 	@Override
 	public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
 							 final Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.relay_view, container, false);
 
-		setButton(view);
-
+//		devicesAlarm = DevicesAlarm.getInstance();
+//
+//		getRelayStr();
+//
+//		String[] modeControl = getResources().getStringArray(R.array.modeControl);
+//
+//		final MyExpListAdapter adapter = new MyExpListAdapter(view.getContext(), nameRelay,
+//				modeControl, optionRelay);
+//
 
 		return view;
 	}
 
-	private void setButton(final View view){
-		btnRelay1 = (Button) view.findViewById(R.id.btnRelay1);
-		btnRelay2 = (Button) view.findViewById(R.id.btnRelay2);
-		btnRelay3 = (Button) view.findViewById(R.id.btnRelay3);
-		btnRelay4 = (Button) view.findViewById(R.id.btnRelay4);
-		btnRelay5 = (Button) view.findViewById(R.id.btnRelay5);
-		btnRelay6 = (Button) view.findViewById(R.id.btnRelay6);
+	private void getRelayStr() {
+		Relay[] relay = devicesAlarm.getRelays();
+		nameRelay = new String[relay.length];
 
-		btnRelay1.setOnClickListener(this);
-		btnRelay2.setOnClickListener(this);
-		btnRelay3.setOnClickListener(this);
-		btnRelay4.setOnClickListener(this);
-		btnRelay5.setOnClickListener(this);
-		btnRelay6.setOnClickListener(this);
+		for (int i = 0; i < relay.length; i++) {
+			nameRelay[i] = relay[i].NAME_PREFS_RELAY;
+			optionRelay[i] = "";
+			//optionRelay[i] = relay[i].getOption();
+		}
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()){
-			case R.id.btnRelay1:
 
-				break;
-			case R.id.btnRelay2:
-				break;
-			case R.id.btnRelay3:
-				break;
-			case R.id.btnRelay4:
-				break;
-			case R.id.btnRelay5:
-
-				break;
-			case R.id.btnRelay6:
-				break;
 		}
 	}
 }

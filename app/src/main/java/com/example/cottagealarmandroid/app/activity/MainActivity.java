@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         createTabs(savedInstanceState);
 
         AdvancePreferences.init(this);
-       // AdvancePreferences.clearAllProperty(); //временный метод для удаления неправильных установок
+        // AdvancePreferences.clearAllProperty(); //временный метод для удаления неправильных установок
         DevicesAlarm.getInstance(); //Инициализируем устройство и устанавливаем его настройки
 
 

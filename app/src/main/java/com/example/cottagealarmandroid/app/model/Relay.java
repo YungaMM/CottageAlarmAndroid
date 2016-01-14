@@ -13,8 +13,9 @@ public class Relay {
     private boolean switchOnOff;
     private String option;
 
+
     public Relay(final int count, final boolean switchOnOff, final String option) {
-        NAME_PREFS_RELAY = "relay" + count;
+        NAME_PREFS_RELAY = "РЕЛЕ" + count;
         this.count = count;
         this.switchOnOff = switchOnOff;
         this.option = option;
