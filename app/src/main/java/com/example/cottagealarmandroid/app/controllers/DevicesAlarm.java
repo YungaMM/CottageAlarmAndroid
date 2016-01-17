@@ -10,7 +10,9 @@ public class DevicesAlarm extends SmsCommandsAlarm {
     private Temperature temperature; //Температура
 
     private Battery battery; //Заряд батареи
-
+    //сделать не массивом, а ArrayList например, чтобы можно было добавлять реле,
+// но не больше 6 шт в общем
+    public final static int COUNT_RELAY = 6;
     private Relay[] relays;  //список реле
 
 //    private Energy energy; //электроэнергия вкл/выкл
@@ -26,18 +28,15 @@ public class DevicesAlarm extends SmsCommandsAlarm {
     // в Андроид конструктор переделать чтобы считывал установки из SharedPreferences Андроида
     private DevicesAlarm() {
         this.basicAlarmProperty = new BasicAlarmProperty();
+        this.relays = new Relay[COUNT_RELAY];
 
-//        this.basicAlarmProperty = new BasicAlarmProperty(AdvancePreferences.getAlarmPhone(),
-//                AdvancePreferences.getUserPhones(),
-//                AdvancePreferences.getDateInDevice(),
-//                AdvancePreferences.getTimeInDevice());
 //        this.temperature = new Temperature(AdvancePreferences.getTemperature());
 //        this.battery = new Battery(AdvancePreferences.getBattery());
-//        this.relays = AdvancePreferences.getRelays();
 //        this.energy = new Energy(AdvancePreferences.isEnergy());
+
     }
 
-   public BasicAlarmProperty getBasicAlarmProperty() {
+    public BasicAlarmProperty getBasicAlarmProperty() {
         return basicAlarmProperty;
     }
 
@@ -66,7 +65,7 @@ public class DevicesAlarm extends SmsCommandsAlarm {
     }
 
     public Relay getRelay(final int count) {
-            return relays[count - 1];
+        return relays[count];
     }
 
     public void setRelays(Relay[] relays) {

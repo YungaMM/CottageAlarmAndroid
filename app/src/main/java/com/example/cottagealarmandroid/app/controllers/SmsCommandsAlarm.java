@@ -13,7 +13,7 @@ public class SmsCommandsAlarm {
         sb.append("#R");
         sb.append(relay.getCount() + 1);
         sb.append("=");
-        sb.append(relay.isSwitchOnOff() ? "1" : "0");
+//        sb.append(relay.isSwitchOnOff() ? "1" : "0");
         if (!relay.getOption().equals("")) {
             sb.append(",");
             sb.append(relay.getOption());

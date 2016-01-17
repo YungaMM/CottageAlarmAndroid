@@ -1,4 +1,4 @@
-package com.example.cottagealarmandroid.app.activity.fragments;
+package com.example.cottagealarmandroid.app.activity.fragments.dialogs;
 
 
 import android.app.Dialog;
@@ -16,7 +16,7 @@ import com.example.cottagealarmandroid.app.model.BasicAlarmProperty;
 public class EnterPhoneAlarmFragment extends DialogFragment implements
         DialogInterface.OnClickListener {
 
-    private View form = null;
+    private View layoutEnterPhoneAlarm = null;
 
     private EditText phoneAlarm;
 
@@ -24,14 +24,14 @@ public class EnterPhoneAlarmFragment extends DialogFragment implements
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        form = getActivity().getLayoutInflater()
+        layoutEnterPhoneAlarm = getActivity().getLayoutInflater()
                 .inflate(R.layout.enter_phone_alarm, null);
 
-        phoneAlarm = (EditText) form.findViewById(R.id.value_phone_alarm);
+        phoneAlarm = (EditText) layoutEnterPhoneAlarm.findViewById(R.id.value_phone_alarm);
         phoneAlarm.setText(DevicesAlarm.getInstance().basicAlarmProperty.getAlarmPhone());
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        return (builder.setTitle(getString(R.string.title_phone_alarm)).setView(form)
+        return (builder.setTitle(getString(R.string.title_phone_alarm)).setView(layoutEnterPhoneAlarm)
                 .setPositiveButton(android.R.string.ok, this)
                 .setNegativeButton(android.R.string.cancel, null).create());
     }

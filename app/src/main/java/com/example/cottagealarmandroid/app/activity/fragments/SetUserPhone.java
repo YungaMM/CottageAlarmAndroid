@@ -44,7 +44,7 @@ public class SetUserPhone extends FragmentActivity implements View.OnClickListen
         final MyExpListAdapter adapter = new MyExpListAdapter(this, nameUserPhoneOptions,
                 userPhoneOptions, option);
 
-        expListView = (ExpandableListView) findViewById(R.id.expandableListView);
+        expListView = (ExpandableListView) findViewById(R.id.expListViewUserPhone);
         expListView.setAdapter(adapter);
         expListListener(adapter);
 
@@ -56,8 +56,8 @@ public class SetUserPhone extends FragmentActivity implements View.OnClickListen
 
         devicesAlarm.basicAlarmProperty.setUserPhone(countPhone, str);
 
-        AdvancePreferences.addProperty(userPhone.NAME_PREFS_USER_PHONE, str);
-        AdvancePreferences.addProperty(userPhone.NAME_PREFS_OPTIONS, userPhone.getOptionString());
+        AdvancePreferences.addProperty(userPhone.getNAME_PREFS_USER_PHONE(), str);
+        AdvancePreferences.addProperty(userPhone.getNAME_PREFS_OPTIONS(), userPhone.getOptionString());
 
         Toast.makeText(this, "Надо вставить обработку отправления СМС команды, " +
                 "а сохранение данных убрать. Телефоны пусть читает после входящей СМСки", Toast.LENGTH_LONG).show();

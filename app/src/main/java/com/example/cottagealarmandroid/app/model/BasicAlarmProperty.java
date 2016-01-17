@@ -23,24 +23,12 @@ public class BasicAlarmProperty {
         dateInDevice = AdvancePreferences.getProperty(NAME_PREFS_DATE_IN_DEVICE);
         timeInDevice = AdvancePreferences.getProperty(NAME_PREFS_TIME_IN_DEVICE);
         energy = AdvancePreferences.getBooleanProperty(NAME_PREFS_ENERGY);
-
         for (int i = 0; i < userPhones.length ; i++) {
-            userPhones[i] = new UserPhones(i,"");
-            userPhones[i].setPhone(AdvancePreferences.getProperty(userPhones[i].NAME_PREFS_USER_PHONE));
-            userPhones[i].setOptionFromString(AdvancePreferences.getProperty(userPhones[i].NAME_PREFS_OPTIONS));
+            userPhones[i] = new UserPhones(i);
+            userPhones[i].setPhone(AdvancePreferences.getProperty(userPhones[i].getNAME_PREFS_USER_PHONE()));
+            userPhones[i].setOptionFromString(AdvancePreferences.getProperty(userPhones[i].getNAME_PREFS_OPTIONS()));
         }
     }
-
-
-//    public BasicAlarmProperty(final String alarmPhone,
-//                              final UserPhones[] userPhones,
-//                              final String dateInDevice,
-//                              final String timeInDevice) {
-//        this.alarmPhone = alarmPhone;
-//        this.userPhones = userPhones;
-//        this.dateInDevice = dateInDevice;
-//        this.timeInDevice = timeInDevice;
-//    }
 
     public String getAlarmPhone() {
         return alarmPhone;

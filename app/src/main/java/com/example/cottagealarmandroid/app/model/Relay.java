@@ -2,49 +2,41 @@ package com.example.cottagealarmandroid.app.model;
 
 public class Relay {
 
-    public static String NAME_PREFS_RELAY = "";
+    private final String NAME_PREFS_RELAY;
+    private final String NAME_PREFS_OPTION;
+    private final String NAME_PREFS_MODE_CONTROL;
 
     private static final String COMMAND_OFF = "#R%d=0";
     private static final String COMMAND_ON = "#R%d=1%s";
 
-    private static String command;
-
     private final int count;
-    private boolean switchOnOff;
+    private String name;
+    private String modeControl;
     private String option;
 
 
-    public Relay(final int count, final boolean switchOnOff, final String option) {
-        NAME_PREFS_RELAY = "РЕЛЕ" + count;
+    public Relay(final int count) {
+        NAME_PREFS_RELAY = "РЕЛЕ"+count;
+        NAME_PREFS_OPTION = "ОпцииРЕЛЕ" + count;
+        NAME_PREFS_MODE_CONTROL = "РежимУправленияРЕЛЕ" + count;
         this.count = count;
-        this.switchOnOff = switchOnOff;
-        this.option = option;
     }
 
-    //методы textRelayCommand созданы для файла setting.txt
-    public static String textRelayCommand(final Relay relay) {
-        command = relay.isSwitchOnOff() ? COMMAND_ON : COMMAND_OFF;
-        return String.format(command, relay.getCount() + 1, relay.getOption());
+
+    public String getModeControl() {
+        return modeControl;
     }
 
-    public String textRelayCommand() {
-        command = this.switchOnOff ? COMMAND_ON : COMMAND_OFF;
-        return String.format(command, this.count + 1, this.option);
+    public void setModeControl(String modeControl) {
+        this.modeControl = modeControl;
     }
 
-    //********************get/set*******************************************************
-
-    public void setSwitchOnOff(final boolean switchOnOff) {
-        this.switchOnOff = switchOnOff;
+    public String getName() {
+        return name;
     }
 
-    public void setSwitchOnOff(final boolean switchOnOff, final String option) {
-        this.switchOnOff = switchOnOff;
-        this.option = option;
-    }
-
-    public boolean isSwitchOnOff() {
-        return switchOnOff;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getCount() {
@@ -52,10 +44,36 @@ public class Relay {
     }
 
     public String getOption() {
+        if(option.equals("")) option = "0";
         return option;
     }
 
-    public void setOption(String optionRelayOn) {
-        this.option = optionRelayOn;
+    public void setOption(String option) {
+        this.option = option;
     }
+
+    public String getNAME_PREFS_RELAY() {
+        return NAME_PREFS_RELAY;
+    }
+
+    public String getNAME_PREFS_OPTION() {
+        return NAME_PREFS_OPTION;
+    }
+
+    public String getNAME_PREFS_MODE_CONTROL() {
+        return NAME_PREFS_MODE_CONTROL;
+    }
+
+    //    public void setSwitchOnOff(final boolean switchOnOff) {
+//        this.switchOnOff = switchOnOff;
+//    }
+//
+//    public void setSwitchOnOff(final boolean switchOnOff, final String option) {
+//        this.switchOnOff = switchOnOff;
+//        this.option = option;
+//    }
+//
+//    public boolean isSwitchOnOff() {
+//        return switchOnOff;
+//    }
 }

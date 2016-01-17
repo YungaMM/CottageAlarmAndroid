@@ -11,9 +11,11 @@ import android.widget.TabHost;
 import android.widget.Toast;
 import com.example.cottagealarmandroid.app.R;
 import com.example.cottagealarmandroid.app.activity.fragments.*;
+import com.example.cottagealarmandroid.app.activity.fragments.dialogs.EnterPhoneAlarmFragment;
 import com.example.cottagealarmandroid.app.adapters.TabsAdapter;
 import com.example.cottagealarmandroid.app.controllers.AdvancePreferences;
 import com.example.cottagealarmandroid.app.controllers.DevicesAlarm;
+import com.example.cottagealarmandroid.app.model.Relay;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,31 +26,43 @@ public class MainActivity extends AppCompatActivity {
         createTabs(savedInstanceState);
 
         AdvancePreferences.init(this);
-        // AdvancePreferences.clearAllProperty(); //временный метод для удаления неправильных установок
-        DevicesAlarm.getInstance(); //Инициализируем устройство и устанавливаем его настройки
+        //clearAllProperty();//временный метод для удаления неправильных установок
 
+        //DevicesAlarm надо будет переделать, чтобы в него подставлялись
+        //объекты с уже считанными настройками. А то получается что есть такой класс
+        //который сам по себе что-то подключил и как-то настроил
+        DevicesAlarm devAlarm = DevicesAlarm.getInstance(); //Инициализируем устройство и устанавливаем его настройки
+
+        devAlarm.setRelays(installRelays(devAlarm.COUNT_RELAY));
 
     }
 
-    private void createTabs(final Bundle savedInstanceState) {
-        TabHost mTabHost = (TabHost) findViewById(android.R.id.tabhost);
-        mTabHost.setup();
-
-        ViewPager mViewPager = (ViewPager) findViewById(R.id.pager);
-
-        TabsAdapter mTabsAdapter = new TabsAdapter(this, mTabHost, mViewPager);
-
-        mTabsAdapter.addTab(mTabHost.newTabSpec("Основной экран")
-                        .setIndicator(getString(R.string.stateAlarm))
-                , BasicViewFragment.class, null);
-        mTabsAdapter.addTab(mTabHost.newTabSpec("Экран реле")
-                        .setIndicator(getString(R.string.managementRelay))
-                , RelayFragment.class, null);
-
-        if (savedInstanceState != null) {
-            mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab"));
+    private void clearAllProperty() {
+        AdvancePreferences.clearAllProperty();
+        String name;
+        for (int i = 0; i < 6; i++) {
+            name = "РЕЛЕ" + i;
+            AdvancePreferences.addProperty(name, name);
+            name = "ОпцииРЕЛЕ" + i;
+            AdvancePreferences.addProperty(name, "1");
+            name = "РежимУправленияРЕЛЕ" + String.valueOf(i);
+            AdvancePreferences.addProperty(name, "Включить РЕЛЕ на заданное время");
         }
+
     }
+
+    private Relay[] installRelays(final int count) {
+        Relay[] relay = new Relay[count];
+
+        for (int i = 0; i < relay.length; i++) {
+            relay[i] = new Relay(i);
+            relay[i].setName(AdvancePreferences.getProperty(relay[i].getNAME_PREFS_RELAY()));
+            relay[i].setModeControl(AdvancePreferences.getProperty(relay[i].getNAME_PREFS_MODE_CONTROL()));
+            relay[i].setOption(AdvancePreferences.getProperty(relay[i].getNAME_PREFS_OPTION()));
+        }
+        return relay;
+    }
+
 
     public void clickReloadSettings(View v) {
         Toast.makeText(this, "Нажали обновить данные", Toast.LENGTH_SHORT).show();
@@ -80,5 +94,26 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void createTabs(final Bundle savedInstanceState) {
+        TabHost mTabHost = (TabHost) findViewById(android.R.id.tabhost);
+        mTabHost.setup();
+
+        ViewPager mViewPager = (ViewPager) findViewById(R.id.pager);
+
+        TabsAdapter mTabsAdapter = new TabsAdapter(this, mTabHost, mViewPager);
+
+        mTabsAdapter.addTab(mTabHost.newTabSpec("Основной экран")
+                        .setIndicator(getString(R.string.stateAlarm))
+                , BasicViewFragment.class, null);
+
+        mTabsAdapter.addTab(mTabHost.newTabSpec("Экран реле")
+                        .setIndicator(getString(R.string.managementRelay))
+                , RelayFragment.class, null);
+
+        if (savedInstanceState != null) {
+            mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab"));
+        }
     }
 }
