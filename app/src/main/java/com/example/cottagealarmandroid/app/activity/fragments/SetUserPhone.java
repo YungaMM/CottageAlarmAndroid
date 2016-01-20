@@ -73,7 +73,7 @@ public class SetUserPhone extends FragmentActivity implements View.OnClickListen
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition,
                                         int childPosition, long id) {
                 TextView textOption = (TextView) v.findViewById(android.R.id.text1);
-                adapter.setOption(groupPosition, String.valueOf(textOption.getText()));
+                adapter.setExistChild(groupPosition, String.valueOf(textOption.getText()));
                 userPhone.setOption(groupPosition, String.valueOf(childPosition));
                 expListView.collapseGroup(groupPosition);
 

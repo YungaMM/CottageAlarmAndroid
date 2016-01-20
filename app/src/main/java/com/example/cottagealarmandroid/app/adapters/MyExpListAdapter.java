@@ -31,7 +31,7 @@ public class MyExpListAdapter extends BaseExpandableListAdapter {
     }
 
 
-    public void setOption(final int count, final String option){
+    public void setExistChild(final int count, final String option){
         this.existChild[count] = option;
     }
 
@@ -39,9 +39,9 @@ public class MyExpListAdapter extends BaseExpandableListAdapter {
         return existChild;
     }
 
-    public void setExistChild(String[] existChild) {
-        this.existChild = existChild;
-    }
+//    public void setExistChild(String[] existChild) {
+//        this.existChild = existChild;
+//    }
 
     public void setIndicatorGroupRight(final ExpandableListView expListView, final Activity activity) {
         //Устанавливаем индикатор группы вправо

@@ -15,6 +15,7 @@ import com.example.cottagealarmandroid.app.R;
 import com.example.cottagealarmandroid.app.activity.fragments.dialogs.RelayOff;
 import com.example.cottagealarmandroid.app.activity.fragments.dialogs.RelayTimePeriod;
 import com.example.cottagealarmandroid.app.adapters.MyExpListAdapter;
+import com.example.cottagealarmandroid.app.controllers.AdvancePreferences;
 import com.example.cottagealarmandroid.app.controllers.DevicesAlarm;
 import com.example.cottagealarmandroid.app.model.Relay;
 
@@ -47,7 +48,7 @@ public class RelayFragment extends Fragment {
         String[] modeControl = getResources().getStringArray(R.array.modeControl);
 
         adapter = new MyExpListAdapter(view.getContext(), getNameRelayStr(),
-                modeControl, getModeControlStr());
+                modeControl, getOptionRelayStr());
         expListView = (ExpandableListView) view.findViewById(R.id.expListViewRelay);
         expListView.setAdapter(adapter);
         expListListener(adapter);
@@ -64,17 +65,24 @@ public class RelayFragment extends Fragment {
             switch (requestCode) {
                 case REQUEST_OFF:
                     Toast.makeText(getContext(), "Вернулись в фрагмент", Toast.LENGTH_SHORT).show();
+                    AdvancePreferences.addProperty(relays[groupPosition].getNAME_PREFS_OPTION()
+                            , "0");
                     break;
                 case REQUEST_ON:
-                    Toast.makeText(getContext(), "Вернулись из вкл реле на время", Toast.LENGTH_SHORT).show();
-//                    relays[groupPosition].setOption(data.getStringExtra(RelayTimePeriod.TAG_OPTION_RELAY));
+                    relays[groupPosition].setOption(data.getStringExtra(RelayTimePeriod.TAG_OPTION_RELAY));
+                    AdvancePreferences.addProperty(relays[groupPosition].getNAME_PREFS_OPTION()
+                            , relays[groupPosition].getOption());
                     break;
             }
 
-            TextView textOption = (TextView) v.findViewById(android.R.id.text1);
-            adapter.setOption(groupPosition, String.valueOf(textOption.getText()));
-            relays[groupPosition].setModeControl(String.valueOf(childPosition));
-//            relays[groupPosition].setOption(String.valueOf(childPosition));
+            TextView textExistChild = (TextView) v.findViewById(android.R.id.text1);
+            adapter.setExistChild(groupPosition, String.valueOf(textExistChild.getText()));
+
+            String str = String.valueOf(childPosition);
+            relays[groupPosition].setModeControl(str);
+//            relays[groupPosition].setExistChild(String.valueOf(childPosition));
+            AdvancePreferences.addProperty(relays[groupPosition].getNAME_PREFS_MODE_CONTROL(), str);
+
 
             expListView.setAdapter(adapter);
         }
@@ -84,8 +92,8 @@ public class RelayFragment extends Fragment {
 //	public void onResume() {
 //		super.onResume();
 //		TextView textOption = (TextView) v.findViewById(android.R.id.text1);
-//		adapter.setOption(groupPosition, String.valueOf(textOption.getText()));
-//		relays[groupPosition].setOption(String.valueOf(childPosition));
+//		adapter.setExistChild(groupPosition, String.valueOf(textOption.getText()));
+//		relays[groupPosition].setExistChild(String.valueOf(childPosition));
 //	}
 
     private void expListListener(final MyExpListAdapter adapter) {
