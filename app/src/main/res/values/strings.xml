@@ -2,33 +2,21 @@
     <string name="app_name">Cottage Alarm</string>
 
     <!-- Dialog EnterPhoneAlarm -->
-
-
     <string name="title_phone_alarm">Введите номер телефона устройства в формате +7…</string>
 
     <!-- Dialog RelayOff -->
-
-
     <string name="title">Выключить реле</string>
-
     <string name="message">Подтвердите выключение реле</string>
 
     <!-- Item Menu -->
-
-
     <string name="item_phone_alarm">Номер телефона устройства</string>
-
     <string name="item_phone_user">Номера телефонов пользователя</string>
-
     <string name="item_set_date_alarm">Установить дату/время устройства</string>
-
     <string name="item_set_limit_temperature">Установить границы термометра</string>
 
     <string name="pref_size">Размер шрифта</string>
 
     <!--Надо разобрать -->
-
-
     <string name="stateAlarm">Состояние сигнализации</string>
 
     <string name="managementRelay">Управление реле</string>
@@ -93,17 +81,15 @@
 
     <string name="textModeControl">Выберете режим управления</string>
 
+
+    <!-- set_relay_time_period  -->
+    <string name="titleRelayTimePeriod">Введите время включения РЕЛЕ.</string>
     <string name="textDescription">Реле можно включить на заданное время по команде, посланной в СМС сообщении,
         автоматически по любому выбранному событию (активный вход зоны, звонок с выбранного номера телефона), или по
         команде из голосового меню управления. Если время включения 0 мин – 0 сек, то реле будет включено постоянно, без
         отсчета времени включения.
     </string>
+    <string name="textMinOn">Время включения (минуты), 0 – 59 мин</string>
+    <string name="textSecOn">Время выключения (секунды), 0 – 59 сек</string>
 
-    <string name="textMinOn">Время включения (минуты), 0 – 59 сек</string>
-
-    <string name="textSecOn">Время выключения (минуты), 0 – 59 сек</string>
-
-    <string name="textTitle">Введите время включения РЕЛЕ.</string>
-
-    <string name="textModelControl">Режим управления</string>
 </resources>

@@ -29,8 +29,8 @@ public class UserPhones {
 
     public String getOptionString (){
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < option.length ; i++) {
-            result.append(option[i]);
+        for (String anOption : option) {
+            result.append(anOption);
         }
         return result.toString();
     }

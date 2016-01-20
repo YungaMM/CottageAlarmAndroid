@@ -24,6 +24,7 @@ public class Relay {
 
 
     public String getModeControl() {
+        if (modeControl.equals("")) modeControl = "0";
         return modeControl;
     }
 

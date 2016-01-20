@@ -7,6 +7,7 @@ public class SmsCommandsAlarm {
     private String command;
 
     //метод возвращает команду Реле для СМС
+    //надо переделать чтобы метод брал номер реле и соединял с опциями этого реле
     public static String setRelay(Relay relay) {
         StringBuilder sb = new StringBuilder();
 
@@ -20,6 +21,17 @@ public class SmsCommandsAlarm {
             sb.append(",0");
         }
         return sb.toString();
+    }
+
+    public static String setOptionRelayOn(final String minOn, final String secOn) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("=1,");
+        sb.append(minOn);
+        sb.append("-");
+        sb.append(secOn);
+        sb.append(",0,0");
+
+        return String.valueOf(sb);
     }
 
     public static String setTimeDate(BasicAlarmProperty basicAlarmProperty){
