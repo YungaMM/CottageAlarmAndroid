@@ -1,7 +1,9 @@
 package com.example.cottagealarmandroid.app.activity.fragments.dialogs;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -9,7 +11,6 @@ import android.support.v7.app.AlertDialog;
 import com.example.cottagealarmandroid.app.R;
 
 public class RelayOff extends DialogFragment {
-    private boolean btnOk;
 
     @NonNull
     @Override
@@ -21,8 +22,8 @@ public class RelayOff extends DialogFragment {
 
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                btnOk = true;
-                //((RelayFragment)getTargetFragment()).dialogOkClicked();
+                Intent intent = new Intent();
+                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
             }
         });
 
@@ -31,9 +32,4 @@ public class RelayOff extends DialogFragment {
 
         return builder.create();
     }
-
-    public boolean isBtnOk() {
-        return btnOk;
-    }
-
 }
