@@ -9,39 +9,38 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import com.example.cottagealarmandroid.app.R;
-import com.example.cottagealarmandroid.app.model.UserPhones;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MyExpListAdapter extends BaseExpandableListAdapter {
-    private final String[] mChildStr;
-
     private ArrayList<ArrayList<String>> mGroups;
-    private String[] mGroupsStr;
-    private String[] mOptionStr;
+    private String[] itemGroup;
+    private String[] itemChild;
+    private String[] existChild;
     private Context mContext;
 
     public MyExpListAdapter(final Context context, final String[] itemGroup,
-                            final String[] itemChild, final String[] existChildOption) {
+                            final String[] itemChild, final String[] existChild) {
         mContext = context;
 
-        mGroupsStr = itemGroup;
-        mChildStr = itemChild;
-        mOptionStr = new String[mGroupsStr.length];
-        mGroups = setmGroups(existChildOption);
+        this.itemGroup = itemGroup;
+        this.itemChild = itemChild;
+        this.existChild = new String[this.itemGroup.length];
+        mGroups = setmGroups(existChild);
     }
 
 
     public void setOption(final int count, final String option){
-        this.mOptionStr[count] = option;
+        this.existChild[count] = option;
     }
 
-    public String[] getmOptionStr() {
-        return mOptionStr;
+    public String[] getExistChild() {
+        return existChild;
     }
 
-    public void setmOptionStr(String[] mOptionStr) {
-        this.mOptionStr = mOptionStr;
+    public void setExistChild(String[] existChild) {
+        this.existChild = existChild;
     }
 
     public void setIndicatorGroupRight(final ExpandableListView expListView, final Activity activity) {
@@ -100,7 +99,7 @@ public class MyExpListAdapter extends BaseExpandableListAdapter {
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.option_user_phone_fragment, null);
+            convertView = inflater.inflate(R.layout.my_exp_list_fragment, null);
         }
 
         if (isExpanded) {
@@ -110,10 +109,10 @@ public class MyExpListAdapter extends BaseExpandableListAdapter {
         }
 
         TextView textGroup = (TextView) convertView.findViewById(R.id.textGroupName);
-        textGroup.setText(mGroupsStr[groupPosition]);
+        textGroup.setText(itemGroup[groupPosition]);
 
         TextView textChild = (TextView) convertView.findViewById(R.id.textChildName);
-        textChild.setText(mOptionStr[groupPosition]);
+        textChild.setText(existChild[groupPosition]);
 
         return convertView;
     }
@@ -148,14 +147,12 @@ public class MyExpListAdapter extends BaseExpandableListAdapter {
         ArrayList<ArrayList<String>> groups = new ArrayList<>();
         ArrayList<String> child = new ArrayList<>();
 
-        for (String aMChildStr : mChildStr) {
-            child.add(aMChildStr);
-        }
+        Collections.addAll(child, itemChild);
 
-        for (int i = 0; i < mGroupsStr.length; i++) {
+        for (int i = 0; i < itemGroup.length; i++) {
             groups.add(child);
             int option = Integer.valueOf(existChildOption[i]);
-            mOptionStr[i] = mChildStr[option];
+            existChild[i] = itemChild[option];
         }
 
         return groups;

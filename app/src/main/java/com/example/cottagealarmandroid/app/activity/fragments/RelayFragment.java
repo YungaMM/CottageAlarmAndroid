@@ -47,7 +47,7 @@ public class RelayFragment extends Fragment {
         String[] modeControl = getResources().getStringArray(R.array.modeControl);
 
         adapter = new MyExpListAdapter(view.getContext(), getNameRelayStr(),
-                modeControl, getOptionRelayStr());
+                modeControl, getModeControlStr());
         expListView = (ExpandableListView) view.findViewById(R.id.expListViewRelay);
         expListView.setAdapter(adapter);
         expListListener(adapter);
@@ -100,15 +100,13 @@ public class RelayFragment extends Fragment {
 
                 switch (childPosition) {
                     case (0):
-                        dialogFragment = new RelayOff();
-                        dialogFragment.setTargetFragment(relayFragment, REQUEST_OFF);
-                        dialogFragment.show(getFragmentManager(), dialogFragment.getClass().getName());
+//                        dialogFragment = new RelayOff();
+//                        dialogFragment.setTargetFragment(relayFragment, REQUEST_OFF);
+//                        dialogFragment.show(getFragmentManager(), dialogFragment.getClass().getName());
+                        openDialog(new RelayOff());
                         break;
                     case (1):
-                        dialogFragment = new RelayTimePeriod();
-                        dialogFragment.setTargetFragment(relayFragment, REQUEST_ON);
-                        dialogFragment.show(getFragmentManager()
-                                , dialogFragment.getClass().getName());
+                        openDialog(new RelayTimePeriod());
                         break;
                     case (2):
 
@@ -149,6 +147,20 @@ public class RelayFragment extends Fragment {
             nameRelay[i] = str.replace(String.valueOf(i), String.valueOf(i + 1));
         }
         return nameRelay;
+    }
+
+    private void openDialog(DialogFragment df) {
+        df.setTargetFragment(relayFragment, REQUEST_OFF);
+        df.show(getFragmentManager(), df.getClass().getName());
+    }
+
+    private String[] getModeControlStr() {
+        Relay[] relay = devicesAlarm.getRelays();
+        String[] modeControl = new String[relay.length];
+        for (int i = 0; i < relay.length; i++) {
+            modeControl[i] = relay[i].getModeControl();
+        }
+        return modeControl;
     }
 
     private String[] getOptionRelayStr() {
