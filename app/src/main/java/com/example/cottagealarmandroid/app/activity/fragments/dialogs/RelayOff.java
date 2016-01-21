@@ -22,8 +22,7 @@ public class RelayOff extends DialogFragment {
 
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                Intent intent = new Intent();
-                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
+            getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, null);
             }
         });
 

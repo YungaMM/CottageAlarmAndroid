@@ -17,6 +17,7 @@ import com.example.cottagealarmandroid.app.activity.fragments.dialogs.RelayTimeP
 import com.example.cottagealarmandroid.app.adapters.MyExpListAdapter;
 import com.example.cottagealarmandroid.app.controllers.AdvancePreferences;
 import com.example.cottagealarmandroid.app.controllers.DevicesAlarm;
+import com.example.cottagealarmandroid.app.controllers.SmsCommandsAlarm;
 import com.example.cottagealarmandroid.app.model.Relay;
 
 
@@ -28,12 +29,11 @@ public class RelayFragment extends Fragment {
     private DevicesAlarm devicesAlarm;
     private Relay[] relays;
 
+    //Переменные для передачи данных из Listener
     private View v;
     private int groupPosition, childPosition;
     private MyExpListAdapter adapter;
-
     private Fragment relayFragment;
-    private DialogFragment dialogFragment;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
@@ -48,7 +48,7 @@ public class RelayFragment extends Fragment {
         String[] modeControl = getResources().getStringArray(R.array.modeControl);
 
         adapter = new MyExpListAdapter(view.getContext(), getNameRelayStr(),
-                modeControl, getOptionRelayStr());
+                modeControl, getModeControlStr());
         expListView = (ExpandableListView) view.findViewById(R.id.expListViewRelay);
         expListView.setAdapter(adapter);
         expListListener(adapter);
@@ -60,41 +60,34 @@ public class RelayFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        String sms = "";
+        Relay relay = relays[groupPosition];
 
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_OFF:
-                    Toast.makeText(getContext(), "Вернулись в фрагмент", Toast.LENGTH_SHORT).show();
-                    AdvancePreferences.addProperty(relays[groupPosition].getNAME_PREFS_OPTION()
-                            , "0");
+                    sms = SmsCommandsAlarm.createSmsRelayOff(relay);
                     break;
                 case REQUEST_ON:
-                    relays[groupPosition].setOption(data.getStringExtra(RelayTimePeriod.TAG_OPTION_RELAY));
-                    AdvancePreferences.addProperty(relays[groupPosition].getNAME_PREFS_OPTION()
-                            , relays[groupPosition].getOption());
+                    String minute = data.getStringExtra(RelayTimePeriod.TAG_MIN);
+                    String sec = data.getStringExtra(RelayTimePeriod.TAG_SEC);
+                    sms = SmsCommandsAlarm.createSmsRelay(relay, minute, sec);
                     break;
             }
+            relay.setSmsCommand(sms);
+            AdvancePreferences.addProperty(relay.getNAME_PREFS_SMS(), sms);
+            String str = String.valueOf(childPosition);
+            relays[groupPosition].setModeControl(str);
+            AdvancePreferences.addProperty(relays[groupPosition].getNAME_PREFS_MODE_CONTROL(), str);
+
+            Toast.makeText(getContext(), sms, Toast.LENGTH_SHORT).show();
 
             TextView textExistChild = (TextView) v.findViewById(android.R.id.text1);
             adapter.setExistChild(groupPosition, String.valueOf(textExistChild.getText()));
 
-            String str = String.valueOf(childPosition);
-            relays[groupPosition].setModeControl(str);
-//            relays[groupPosition].setExistChild(String.valueOf(childPosition));
-            AdvancePreferences.addProperty(relays[groupPosition].getNAME_PREFS_MODE_CONTROL(), str);
-
-
             expListView.setAdapter(adapter);
         }
     }
-
-    //	@Override
-//	public void onResume() {
-//		super.onResume();
-//		TextView textOption = (TextView) v.findViewById(android.R.id.text1);
-//		adapter.setExistChild(groupPosition, String.valueOf(textOption.getText()));
-//		relays[groupPosition].setExistChild(String.valueOf(childPosition));
-//	}
 
     private void expListListener(final MyExpListAdapter adapter) {
         adapter.setIndicatorGroupRight(expListView, getActivity());
@@ -108,13 +101,10 @@ public class RelayFragment extends Fragment {
 
                 switch (childPosition) {
                     case (0):
-//                        dialogFragment = new RelayOff();
-//                        dialogFragment.setTargetFragment(relayFragment, REQUEST_OFF);
-//                        dialogFragment.show(getFragmentManager(), dialogFragment.getClass().getName());
-                        openDialog(new RelayOff());
+                        openDialog(new RelayOff(), REQUEST_OFF);
                         break;
                     case (1):
-                        openDialog(new RelayTimePeriod());
+                        openDialog(new RelayTimePeriod(), REQUEST_ON);
                         break;
                     case (2):
 
@@ -157,8 +147,8 @@ public class RelayFragment extends Fragment {
         return nameRelay;
     }
 
-    private void openDialog(DialogFragment df) {
-        df.setTargetFragment(relayFragment, REQUEST_OFF);
+    private void openDialog(final DialogFragment df, final int request) {
+        df.setTargetFragment(relayFragment, request);
         df.show(getFragmentManager(), df.getClass().getName());
     }
 
@@ -170,14 +160,4 @@ public class RelayFragment extends Fragment {
         }
         return modeControl;
     }
-
-    private String[] getOptionRelayStr() {
-        Relay[] relay = devicesAlarm.getRelays();
-        String[] optionRelay = new String[relay.length];
-        for (int i = 0; i < relay.length; i++) {
-            optionRelay[i] = relay[i].getOption();
-        }
-        return optionRelay;
-    }
-
 }

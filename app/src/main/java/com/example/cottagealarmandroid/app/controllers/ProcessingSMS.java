@@ -51,10 +51,10 @@ public class ProcessingSMS {
             lc = loadCommand(("РЕЛЕ " + (i + 1) + "="), (" РЕЛЕ " + (i + 2)));
             if (lc.contains("ВЫКЛ")) {
 //                relay[i].setSwitchOnOff(false);
-                relay[i].setOption("");
+                relay[i].setSmsCommand("");
             } else { //ВКЛ
                 lc = loadCommand(("РЕЛЕ " + (i + 1) + "=ВКЛ "), (" РЕЛЕ " + (i + 2)));
-                relay[i].setOption(lc);
+                relay[i].setSmsCommand(lc);
 //                relay[i].setSwitchOnOff(true);
             }
         }

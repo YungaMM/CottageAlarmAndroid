@@ -43,10 +43,10 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < 6; i++) {
             name = "РЕЛЕ" + i;
             AdvancePreferences.addProperty(name, name);
-            name = "ОпцииРЕЛЕ" + i;
+            name = "Sms" + i;
             AdvancePreferences.addProperty(name, "1");
             name = "РежимУправленияРЕЛЕ" + String.valueOf(i);
-            AdvancePreferences.addProperty(name, "Включить РЕЛЕ на заданное время");
+            AdvancePreferences.addProperty(name, "1");
         }
 
     }
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             relay[i] = new Relay(i);
             relay[i].setName(AdvancePreferences.getProperty(relay[i].getNAME_PREFS_RELAY()));
             relay[i].setModeControl(AdvancePreferences.getProperty(relay[i].getNAME_PREFS_MODE_CONTROL()));
-            relay[i].setOption(AdvancePreferences.getProperty(relay[i].getNAME_PREFS_OPTION()));
+            relay[i].setSmsCommand(AdvancePreferences.getProperty(relay[i].getNAME_PREFS_SMS()));
         }
         return relay;
     }

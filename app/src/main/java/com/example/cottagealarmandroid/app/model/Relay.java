@@ -3,7 +3,7 @@ package com.example.cottagealarmandroid.app.model;
 public class Relay {
 
     private final String NAME_PREFS_RELAY;
-    private final String NAME_PREFS_OPTION;
+    private final String NAME_PREFS_SMS;
     private final String NAME_PREFS_MODE_CONTROL;
 
     private static final String COMMAND_OFF = "#R%d=0";
@@ -12,12 +12,12 @@ public class Relay {
     private final int count;
     private String name;
     private String modeControl;
-    private String option;
+    private String smsCommand;
 
 
     public Relay(final int count) {
         NAME_PREFS_RELAY = "РЕЛЕ"+count;
-        NAME_PREFS_OPTION = "ОпцииРЕЛЕ" + count;
+        NAME_PREFS_SMS = "Sms" + count;
         NAME_PREFS_MODE_CONTROL = "РежимУправленияРЕЛЕ" + count;
         this.count = count;
     }
@@ -44,37 +44,25 @@ public class Relay {
         return count;
     }
 
-    public String getOption() {
-        if(option.equals("")) option = "0";
-        return option;
+    public String getSmsCommand() {
+        if(smsCommand.equals("")) smsCommand = "0";
+        return smsCommand;
     }
 
-    public void setOption(String option) {
-        this.option = option;
+    public void setSmsCommand(String smsCommand) {
+        this.smsCommand = smsCommand;
     }
 
     public String getNAME_PREFS_RELAY() {
         return NAME_PREFS_RELAY;
     }
 
-    public String getNAME_PREFS_OPTION() {
-        return NAME_PREFS_OPTION;
+    public String getNAME_PREFS_SMS() {
+        return NAME_PREFS_SMS;
     }
 
     public String getNAME_PREFS_MODE_CONTROL() {
         return NAME_PREFS_MODE_CONTROL;
     }
 
-    //    public void setSwitchOnOff(final boolean switchOnOff) {
-//        this.switchOnOff = switchOnOff;
-//    }
-//
-//    public void setSwitchOnOff(final boolean switchOnOff, final String option) {
-//        this.switchOnOff = switchOnOff;
-//        this.option = option;
-//    }
-//
-//    public boolean isSwitchOnOff() {
-//        return switchOnOff;
-//    }
 }

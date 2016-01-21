@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -15,7 +16,8 @@ import com.example.cottagealarmandroid.app.R;
 import com.example.cottagealarmandroid.app.controllers.SmsCommandsAlarm;
 
 public class RelayTimePeriod extends DialogFragment {
-    public static final String TAG_OPTION_RELAY = "OptionRelay";
+    public static final String TAG_MIN = "Min";
+    public static final String TAG_SEC = "Sec";
 
     @NonNull
     @Override
@@ -32,10 +34,11 @@ public class RelayTimePeriod extends DialogFragment {
                 EditText valueMin = (EditText) view.findViewById(R.id.valueMinOn);
                 EditText valueSec = (EditText) view.findViewById(R.id.valueSecOn);
 
-                String optionRelay =
-                        SmsCommandsAlarm.setOptionRelayOn(valueMin.getText().toString()
-                                , valueSec.getText().toString());
-                intent.putExtra(TAG_OPTION_RELAY, optionRelay);
+                String minute = checkValue(valueMin.getText().toString());
+                String sec = checkValue(valueSec.getText().toString());
+
+                intent.putExtra(TAG_MIN, minute);
+                intent.putExtra(TAG_SEC, sec);
                 getTargetFragment().onActivityResult(getTargetRequestCode()
                         , Activity.RESULT_OK
                         , intent);
@@ -45,5 +48,12 @@ public class RelayTimePeriod extends DialogFragment {
         builder.setCancelable(true);
 
         return builder.create();
+    }
+
+    private String checkValue(String value) {
+        if (value.equals("")) value = "00";
+        else if (value.length() < 2) value = "0" + value;
+
+        return value;
     }
 }
