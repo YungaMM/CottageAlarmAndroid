@@ -16,17 +16,14 @@
             android:layout_alignParentLeft="false"
             android:layout_alignParentStart="true"
             android:gravity="center_horizontal"/>
-    <TextView
+    <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/textDescription"
-            android:id="@+id/textDescription"
-            android:layout_gravity="center_horizontal"
+            android:text="..."
+            android:id="@+id/btnAbout"
             android:layout_below="@+id/titleRelayTimePeriod"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="40dp"/>
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,8 +31,10 @@
             android:text="@string/textMinOn"
             android:id="@+id/textMinOn"
             android:layout_gravity="center_horizontal"
-            android:layout_below="@+id/textDescription"
-            android:layout_marginTop="40dp"/>
+            android:layout_below="@+id/btnAbout"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="30dp"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,7 +50,9 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/textSecOn"
             android:id="@+id/textSecOn"
-            android:layout_marginTop="40dp" android:layout_below="@+id/valueMinOn" android:layout_alignParentLeft="true"
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/valueMinOn"
+            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"/>
     <EditText
             android:layout_width="wrap_content"
@@ -59,7 +60,8 @@
             android:inputType="number"
             android:ems="10"
             android:id="@+id/valueSecOn"
+            android:gravity="center_horizontal"
             android:layout_below="@+id/textSecOn"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_horizontal"/>
+            android:layout_alignLeft="@+id/valueMinOn"
+            android:layout_alignStart="@+id/valueMinOn"/>
 </RelativeLayout>
