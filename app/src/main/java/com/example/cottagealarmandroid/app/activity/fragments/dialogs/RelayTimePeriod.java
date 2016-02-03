@@ -14,16 +14,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import com.example.cottagealarmandroid.app.R;
+import com.example.cottagealarmandroid.app.controllers.DevicesAlarm;
+import com.example.cottagealarmandroid.app.model.Relay;
 
 public class RelayTimePeriod extends DialogFragment {
     public static final String TAG_MIN = "Min";
     public static final String TAG_SEC = "Sec";
+
+    private static final DevicesAlarm devicesAlarm = DevicesAlarm.getInstance();
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         final View view = inflater.inflate(R.layout.set_relay_time_period, null);
+
+        setMinSecText(view);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
@@ -58,6 +64,27 @@ public class RelayTimePeriod extends DialogFragment {
         });
 
         return builder.create();
+    }
+
+    private void setMinSecText(final View view) {
+        String textMin, textSec;
+        Relay relay = devicesAlarm.getRelay(getArguments().getInt("countRelay"));
+        String txtSmsCommand = relay.getSmsCommand();
+
+        if (txtSmsCommand.contains("=0")) {
+            textMin = txtSmsCommand.substring(txtSmsCommand.indexOf(","), 2);
+            textSec = txtSmsCommand.substring(txtSmsCommand.indexOf("-"), 2);
+        } else {
+            textMin = "00";
+            textSec = "00";
+        }
+
+        EditText valueMin = (EditText) view.findViewById(R.id.valueMinOn);
+        EditText valueSec = (EditText) view.findViewById(R.id.valueSecOn);
+
+        valueMin.setText(textMin);
+        valueSec.setText(textSec);
+
     }
 
     private String checkValue(String value) {

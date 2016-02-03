@@ -1,7 +1,8 @@
 package com.example.cottagealarmandroid.app.controllers;
 
-
+import android.telephony.SmsManager;
 import com.example.cottagealarmandroid.app.model.*;
+
 import java.io.FileNotFoundException;
 
 public class ProcessingSMS {
@@ -20,6 +21,14 @@ public class ProcessingSMS {
 //        energy = deviceAlarm.getEnergy();
         relay = deviceAlarm.getRelays();
         textSms = "";
+    }
+
+    public static void sendSms(final String textSms) {
+        DevicesAlarm devAlarm = DevicesAlarm.getInstance();
+        String phone = devAlarm.getBasicAlarmProperty().getAlarmPhone();
+
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage(phone, null, textSms, null, null);
     }
 
     //Обрабатывет полученное СМС и устанвливает соответствущие параметры сигнализации
@@ -50,12 +59,10 @@ public class ProcessingSMS {
         for (int i = ii - 3; i < ii; i++) {
             lc = loadCommand(("РЕЛЕ " + (i + 1) + "="), (" РЕЛЕ " + (i + 2)));
             if (lc.contains("ВЫКЛ")) {
-//                relay[i].setSwitchOnOff(false);
                 relay[i].setSmsCommand("");
             } else { //ВКЛ
                 lc = loadCommand(("РЕЛЕ " + (i + 1) + "=ВКЛ "), (" РЕЛЕ " + (i + 2)));
                 relay[i].setSmsCommand(lc);
-//                relay[i].setSwitchOnOff(true);
             }
         }
     }
@@ -81,7 +88,7 @@ public class ProcessingSMS {
 
         String s = textSms.contains("OKAKB=") ? "OKAKB=" : "FALLAKB=";
         battery.setBattery(Double.valueOf(loadCommand(s, "TRM")));
-        energy.setEnergy(s.equals("OKAKB=") ? true : false);
+        energy.setEnergy(s.equals("OKAKB="));
     }
 
     private String loadCommand(final String startCommand, final String endCommand) {

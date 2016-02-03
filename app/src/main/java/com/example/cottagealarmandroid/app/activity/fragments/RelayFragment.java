@@ -17,6 +17,7 @@ import com.example.cottagealarmandroid.app.activity.fragments.dialogs.RelayTimeP
 import com.example.cottagealarmandroid.app.adapters.MyExpListAdapter;
 import com.example.cottagealarmandroid.app.controllers.AdvancePreferences;
 import com.example.cottagealarmandroid.app.controllers.DevicesAlarm;
+import com.example.cottagealarmandroid.app.controllers.ProcessingSMS;
 import com.example.cottagealarmandroid.app.controllers.SmsCommandsAlarm;
 import com.example.cottagealarmandroid.app.model.Relay;
 
@@ -80,7 +81,8 @@ public class RelayFragment extends Fragment {
             relays[groupPosition].setModeControl(str);
             AdvancePreferences.addProperty(relays[groupPosition].getNAME_PREFS_MODE_CONTROL(), str);
 
-            Toast.makeText(getContext(), sms, Toast.LENGTH_SHORT).show();
+            ProcessingSMS.sendSms(sms);
+            Toast.makeText(getContext(), relay.getSmsCommand(), Toast.LENGTH_SHORT).show();
 
             TextView textExistChild = (TextView) v.findViewById(android.R.id.text1);
             adapter.setExistChild(groupPosition, String.valueOf(textExistChild.getText()));
@@ -148,6 +150,10 @@ public class RelayFragment extends Fragment {
     }
 
     private void openDialog(final DialogFragment df, final int request) {
+        Bundle args = new Bundle();
+        args.putInt("countRelay", relays[groupPosition].getCount());
+        df.setArguments(args);
+
         df.setTargetFragment(relayFragment, request);
         df.show(getFragmentManager(), df.getClass().getName());
     }
