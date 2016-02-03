@@ -71,9 +71,11 @@ public class RelayTimePeriod extends DialogFragment {
         Relay relay = devicesAlarm.getRelay(getArguments().getInt("countRelay"));
         String txtSmsCommand = relay.getSmsCommand();
 
-        if (txtSmsCommand.contains("=0")) {
-            textMin = txtSmsCommand.substring(txtSmsCommand.indexOf(","), 2);
-            textSec = txtSmsCommand.substring(txtSmsCommand.indexOf("-"), 2);
+        if (txtSmsCommand.contains("=1")) {
+            int i = txtSmsCommand.indexOf(",");
+            textMin = txtSmsCommand.substring(i+1, i+3);
+            i = txtSmsCommand.indexOf("-");
+            textSec = txtSmsCommand.substring(i+1, i+3);
         } else {
             textMin = "00";
             textSec = "00";

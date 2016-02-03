@@ -1,6 +1,8 @@
 package com.example.cottagealarmandroid.app.controllers;
 
+import android.content.Context;
 import android.telephony.SmsManager;
+import android.widget.Toast;
 import com.example.cottagealarmandroid.app.model.*;
 
 import java.io.FileNotFoundException;
@@ -23,12 +25,16 @@ public class ProcessingSMS {
         textSms = "";
     }
 
-    public static void sendSms(final String textSms) {
+    public static void sendSms(final Context context,final String textSms) {
         DevicesAlarm devAlarm = DevicesAlarm.getInstance();
         String phone = devAlarm.getBasicAlarmProperty().getAlarmPhone();
 
-        SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage(phone, null, textSms, null, null);
+        if(!phone.equals("")) {
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(phone, null, textSms, null, null);
+        } else {
+            Toast.makeText(context,"Укажите номер телефона устройства",Toast.LENGTH_SHORT).show();
+        }
     }
 
     //Обрабатывет полученное СМС и устанвливает соответствущие параметры сигнализации
