@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.cottagealarmandroid.app" >
 
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,14 +18,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".activity.fragments.SetDateTime"
-                  android:label="@string/title_set_date_time">
+        <activity
+                android:name=".activity.fragments.SetDateTime"
+                android:label="@string/title_set_date_time">
         </activity>
-
         <activity android:name=".activity.fragments.SettingListUserPhones"/>
-
         <activity android:name=".activity.fragments.SetUserPhone"/>
-     </application>
-    <uses-permission android:name="android.permission.SEND_SMS"/>
+
+        <service
+                android:name=".service.SmsService"
+                android:enabled="true"
+                android:exported="true">
+        </service>
+    </application>
+
 </manifest>

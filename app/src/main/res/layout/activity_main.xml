@@ -32,6 +32,11 @@
 				android:text="@string/btnReloadSettings"
 				android:id="@+id/btnReloadSettings" android:layout_gravity="center_horizontal" android:layout_weight="0"
 				android:onClick="clickReloadSettings"/>
+		<Button
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Стоп сервис"
+				android:id="@+id/btnStopService" android:layout_gravity="right" android:layout_weight="0"/>
 
 	</LinearLayout>
 
