@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TabHost;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.example.cottagealarmandroid.app.R;
 import com.example.cottagealarmandroid.app.activity.fragments.*;
@@ -16,8 +19,11 @@ import com.example.cottagealarmandroid.app.adapters.TabsAdapter;
 import com.example.cottagealarmandroid.app.controllers.AdvancePreferences;
 import com.example.cottagealarmandroid.app.controllers.DevicesAlarm;
 import com.example.cottagealarmandroid.app.model.Relay;
+import com.example.cottagealarmandroid.app.service.SmsService;
 
 public class MainActivity extends AppCompatActivity {
+    final String LOG_TAG = "myLogs"; //переменная для чтения ЛОГа
+    public final static String FILE_NAME = "filename";
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
@@ -34,6 +40,18 @@ public class MainActivity extends AppCompatActivity {
         DevicesAlarm devAlarm = DevicesAlarm.getInstance(); //Инициализируем устройство и устанавливаем его настройки
 
         devAlarm.setRelays(installRelays(devAlarm.COUNT_RELAY));
+//Блок обработки СМСсервиса
+        TextView tv = (TextView) findViewById(R.id.tv);
+        Intent intent = getIntent();
+
+        String fileName = intent.getStringExtra(FILE_NAME);
+        if (!TextUtils.isEmpty(fileName))
+            tv.setText(fileName);
+
+        //    Log.d(LOG_TAG, fileName);
+
+
+        startService(new Intent(this, SmsService.class)); //ЗАпускаем сервис обработки СМС сообщений
 
     }
 
@@ -66,6 +84,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void clickReloadSettings(View v) {
         Toast.makeText(this, "Нажали обновить данные", Toast.LENGTH_SHORT).show();
+    }
+
+    public void clickBtnStopService(View v) {
+        stopService(new Intent(this, SmsService.class));
     }
 
     @Override
