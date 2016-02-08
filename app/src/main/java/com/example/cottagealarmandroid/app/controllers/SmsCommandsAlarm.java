@@ -22,6 +22,10 @@ public class SmsCommandsAlarm {
         return String.valueOf(sb);
     }
 
+    public static String createSmsRelayOff(Relay relay) {
+        return "#R" + (relay.getCount() + 1) + "=0";
+    }
+
     public static String setTimeDate(BasicAlarmProperty basicAlarmProperty) {
         String time = basicAlarmProperty.getTimeInDevice();
         String date = basicAlarmProperty.getDateInDevice();
@@ -51,7 +55,4 @@ public class SmsCommandsAlarm {
         return "?5";
     }
 
-    public static String createSmsRelayOff(Relay relay) {
-        return "#R" + (relay.getCount() + 1) + "=0";
-    }
 }

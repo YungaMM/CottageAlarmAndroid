@@ -18,10 +18,14 @@ public class DevicesAlarm extends SmsCommandsAlarm {
 //    private Energy energy; //электроэнергия вкл/выкл
 
     public static DevicesAlarm getInstance() {
-        if (instance==null) {
+        if (instance == null) {
             instance = new DevicesAlarm();
         }
         return instance;
+    }
+
+    public static DevicesAlarm reloadInstance() {
+        return instance = new DevicesAlarm();
     }
 
     //устанавливаем DevicesAlarm в соответствии с сохраненными установками
@@ -29,6 +33,9 @@ public class DevicesAlarm extends SmsCommandsAlarm {
     private DevicesAlarm() {
         this.basicAlarmProperty = new BasicAlarmProperty();
         this.relays = new Relay[COUNT_RELAY];
+        for (int i = 0; i < relays.length; i++) {
+            relays[i] = AdvancePreferences.getRelay(i);
+        }
 
 //        this.temperature = new Temperature(AdvancePreferences.getTemperature());
 //        this.battery = new Battery(AdvancePreferences.getBattery());

@@ -1,5 +1,7 @@
 package com.example.cottagealarmandroid.app.model;
 
+import com.example.cottagealarmandroid.app.controllers.AdvancePreferences;
+
 public class Relay {
 
     private final String NAME_PREFS_RELAY;
@@ -20,6 +22,9 @@ public class Relay {
         NAME_PREFS_SMS = "Sms" + count;
         NAME_PREFS_MODE_CONTROL = "РежимУправленияРЕЛЕ" + count;
         this.count = count;
+//        name = AdvancePreferences.getProperty(NAME_PREFS_RELAY);
+//        modeControl = AdvancePreferences.getProperty(NAME_PREFS_MODE_CONTROL);
+//        smsCommand = AdvancePreferences.getProperty(NAME_PREFS_SMS);
     }
 
 

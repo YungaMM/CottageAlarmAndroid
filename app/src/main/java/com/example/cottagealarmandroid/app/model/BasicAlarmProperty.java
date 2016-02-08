@@ -7,10 +7,11 @@ public class BasicAlarmProperty {
     public static final String NAME_PREFS_DATE_IN_DEVICE="dateInDevice";
     public static final String NAME_PREFS_TIME_IN_DEVICE="timeInDevice";
     public static final String NAME_PREFS_ENERGY = "energy";
+    public static final int COUNT_USER_PHONES = 5;
 
     private String alarmPhone; //Номер телефона сигнализации
 
-    private UserPhones[] userPhones = new UserPhones[5]; //Номера телефонов забитые в сигнадлизации
+    private UserPhones[] userPhones = new UserPhones[COUNT_USER_PHONES]; //Номера телефонов забитые в сигнадлизации
 
     private String dateInDevice; //дата установленная в устройстве
 

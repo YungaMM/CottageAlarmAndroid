@@ -40,19 +40,6 @@ public class MainActivity extends AppCompatActivity {
         DevicesAlarm devAlarm = DevicesAlarm.getInstance(); //Инициализируем устройство и устанавливаем его настройки
 
         devAlarm.setRelays(installRelays(devAlarm.COUNT_RELAY));
-//Блок обработки СМСсервиса
-        TextView tv = (TextView) findViewById(R.id.tv);
-        Intent intent = getIntent();
-
-        String fileName = intent.getStringExtra(FILE_NAME);
-        if (!TextUtils.isEmpty(fileName))
-            tv.setText(fileName);
-
-        //    Log.d(LOG_TAG, fileName);
-
-
-        startService(new Intent(this, SmsService.class)); //ЗАпускаем сервис обработки СМС сообщений
-
     }
 
     private void clearAllProperty() {
@@ -71,12 +58,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Relay[] installRelays(final int count) {
         Relay[] relay = new Relay[count];
-
         for (int i = 0; i < relay.length; i++) {
-            relay[i] = new Relay(i);
-            relay[i].setName(AdvancePreferences.getProperty(relay[i].getNAME_PREFS_RELAY()));
-            relay[i].setModeControl(AdvancePreferences.getProperty(relay[i].getNAME_PREFS_MODE_CONTROL()));
-            relay[i].setSmsCommand(AdvancePreferences.getProperty(relay[i].getNAME_PREFS_SMS()));
+            relay[i] = AdvancePreferences.getRelay(i);
         }
         return relay;
     }
@@ -84,6 +67,24 @@ public class MainActivity extends AppCompatActivity {
 
     public void clickReloadSettings(View v) {
         Toast.makeText(this, "Нажали обновить данные", Toast.LENGTH_SHORT).show();
+    }
+
+    public void clickSMS(View v) {
+        //Блок обработки СМСсервиса
+        String body = "01.01.13 12:04 1.+70000000 2.+7936589458 3.+7945362158 4.+7912356485";
+        Intent mIntent = new Intent(this, SmsService.class);
+        mIntent.putExtra("sms_body", body);
+        startService(mIntent); //ЗАпускаем сервис обработки СМС сообщений
+
+        TextView tv = (TextView) findViewById(R.id.tv);
+        Intent intent = getIntent();
+
+        String fileName = intent.getStringExtra(FILE_NAME);
+//        Log.d(LOG_TAG, fileName);
+        Log.d(LOG_TAG, String.valueOf(tv));
+        if (!TextUtils.isEmpty(fileName))
+            tv.setText(fileName);
+
     }
 
     public void clickBtnStopService(View v) {

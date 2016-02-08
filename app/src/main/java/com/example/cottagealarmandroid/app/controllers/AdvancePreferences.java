@@ -3,6 +3,7 @@ package com.example.cottagealarmandroid.app.controllers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import com.example.cottagealarmandroid.app.model.Relay;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -32,6 +33,15 @@ public class AdvancePreferences {
         }
         editor.clear();
         editor.commit();
+    }
+
+    public static void addRelay(final Relay relay){
+        if (settings == null) {
+            init();
+        }
+        addProperty(relay.getNAME_PREFS_RELAY(),relay.getName());
+        addProperty(relay.getNAME_PREFS_MODE_CONTROL(),relay.getModeControl());
+        addProperty(relay.getNAME_PREFS_SMS(),relay.getSmsCommand());
     }
 
     public static void addProperty(String name, String value) {
@@ -69,6 +79,17 @@ public class AdvancePreferences {
         }
         editor.putBoolean(name, value);
         editor.commit();
+    }
+
+    public static Relay getRelay (final int count){
+        if (settings == null) {
+            init();
+        }
+        Relay relay = new Relay(count);
+        relay.setName(getProperty(relay.getNAME_PREFS_RELAY()));
+        relay.setModeControl(getProperty(relay.getNAME_PREFS_MODE_CONTROL()));
+        relay.setSmsCommand(getProperty(relay.getNAME_PREFS_SMS()));
+        return relay;
     }
 
     public static String getProperty(String name) {

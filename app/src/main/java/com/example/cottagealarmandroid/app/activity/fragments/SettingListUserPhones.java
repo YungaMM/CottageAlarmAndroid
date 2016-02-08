@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.*;
 import com.example.cottagealarmandroid.app.R;
+import com.example.cottagealarmandroid.app.controllers.AdvancePreferences;
 import com.example.cottagealarmandroid.app.controllers.DevicesAlarm;
 import com.example.cottagealarmandroid.app.model.UserPhones;
 
@@ -40,6 +41,8 @@ public class SettingListUserPhones extends FragmentActivity
     @Override
     protected void onResume() {
         super.onResume();
+        //AdvancePreferences.init(this);
+        DevicesAlarm.reloadInstance();
         usPhones = DevicesAlarm.getInstance().getBasicAlarmProperty().getUserPhones();
         ArrayList<HashMap<String, String>> phoneList = setMapPhones(usPhones);
 

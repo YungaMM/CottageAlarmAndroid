@@ -46,6 +46,11 @@
 				android:layout_gravity="right"
 				android:layout_weight="0"
 				android:onClick="clickBtnStopService"/>
+		<Button
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="SendSMS"
+				android:id="@+id/btnSms" android:layout_weight="0" android:onClick="clickSMS"/>
 
 	</LinearLayout>
 
