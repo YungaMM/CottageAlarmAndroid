@@ -14,7 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import com.example.cottagealarmandroid.app.R;
-import com.example.cottagealarmandroid.app.controllers.DevicesAlarm;
+import com.example.cottagealarmandroid.app.model.DevicesAlarm;
 import com.example.cottagealarmandroid.app.model.Relay;
 
 public class RelayTimePeriod extends DialogFragment {

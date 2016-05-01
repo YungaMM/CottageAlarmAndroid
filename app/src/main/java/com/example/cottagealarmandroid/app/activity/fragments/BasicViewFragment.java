@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import com.example.cottagealarmandroid.app.R;
-import com.example.cottagealarmandroid.app.controllers.DevicesAlarm;
+import com.example.cottagealarmandroid.app.model.DevicesAlarm;
 
 public class BasicViewFragment extends Fragment {
 
@@ -29,7 +29,7 @@ public class BasicViewFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        dateAlarm.setText(DevicesAlarm.getInstance().basicAlarmProperty.getDateInDevice());
+        dateAlarm.setText(DevicesAlarm.getInstance().getBasicAlarmProperty().getDateInDevice());
         if(DevicesAlarm.getInstance().getRelay(3).getModeControl().equals("0")){
             tgBtn.setChecked(true);
 

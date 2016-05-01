@@ -5,8 +5,6 @@ import android.telephony.SmsManager;
 import android.widget.Toast;
 import com.example.cottagealarmandroid.app.model.*;
 
-import java.io.FileNotFoundException;
-
 public class ProcessingSMS {
     private String textSms;
 

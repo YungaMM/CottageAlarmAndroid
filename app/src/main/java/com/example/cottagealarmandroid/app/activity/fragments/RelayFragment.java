@@ -16,7 +16,7 @@ import com.example.cottagealarmandroid.app.activity.fragments.dialogs.RelayOff;
 import com.example.cottagealarmandroid.app.activity.fragments.dialogs.RelayTimePeriod;
 import com.example.cottagealarmandroid.app.adapters.MyExpListAdapter;
 import com.example.cottagealarmandroid.app.controllers.AdvancePreferences;
-import com.example.cottagealarmandroid.app.controllers.DevicesAlarm;
+import com.example.cottagealarmandroid.app.model.DevicesAlarm;
 import com.example.cottagealarmandroid.app.controllers.ProcessingSMS;
 import com.example.cottagealarmandroid.app.controllers.SmsCommandsAlarm;
 import com.example.cottagealarmandroid.app.model.Relay;

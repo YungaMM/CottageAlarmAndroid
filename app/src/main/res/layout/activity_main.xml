@@ -32,12 +32,6 @@
 				android:text="@string/btnReloadSettings"
 				android:id="@+id/btnReloadSettings" android:layout_gravity="center_horizontal" android:layout_weight="0"
 				android:onClick="clickReloadSettings"/>
-		<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:textAppearance="?android:attr/textAppearanceLarge"
-				android:text="Large Text"
-				android:id="@+id/tv" android:layout_weight="0"/>
 		<Button
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
@@ -46,6 +40,10 @@
 				android:layout_gravity="right"
 				android:layout_weight="0"
 				android:onClick="clickBtnStopService"/>
+		<EditText
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/editTextMain" android:layout_weight="0"/>
 		<Button
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"

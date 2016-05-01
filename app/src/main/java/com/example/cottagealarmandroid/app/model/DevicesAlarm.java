@@ -1,11 +1,12 @@
-package com.example.cottagealarmandroid.app.controllers;
+package com.example.cottagealarmandroid.app.model;
 
-import com.example.cottagealarmandroid.app.model.*;
+import com.example.cottagealarmandroid.app.controllers.AdvancePreferences;
+import com.example.cottagealarmandroid.app.controllers.SmsCommandsAlarm;
 
 public class DevicesAlarm extends SmsCommandsAlarm {
     private static DevicesAlarm instance;
 
-    public BasicAlarmProperty basicAlarmProperty; //номер тел. сигнализ., номера тел. юзера, дата устройства
+    private BasicAlarmProperty basicAlarmProperty; //номер тел. сигнализ., номера тел. юзера, дата устройства
 
     private Temperature temperature; //Температура
 

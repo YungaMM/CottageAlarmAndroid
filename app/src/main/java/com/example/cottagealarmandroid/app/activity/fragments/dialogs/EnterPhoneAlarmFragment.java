@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import com.example.cottagealarmandroid.app.R;
 import com.example.cottagealarmandroid.app.controllers.AdvancePreferences;
-import com.example.cottagealarmandroid.app.controllers.DevicesAlarm;
+import com.example.cottagealarmandroid.app.model.DevicesAlarm;
 import com.example.cottagealarmandroid.app.model.BasicAlarmProperty;
 
 public class EnterPhoneAlarmFragment extends DialogFragment implements
@@ -28,7 +28,7 @@ public class EnterPhoneAlarmFragment extends DialogFragment implements
                 .inflate(R.layout.enter_phone_alarm, null);
 
         phoneAlarm = (EditText) layoutEnterPhoneAlarm.findViewById(R.id.value_phone_alarm);
-        phoneAlarm.setText(DevicesAlarm.getInstance().basicAlarmProperty.getAlarmPhone());
+        phoneAlarm.setText(DevicesAlarm.getInstance().getBasicAlarmProperty().getAlarmPhone());
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         return (builder.setTitle(getString(R.string.title_phone_alarm)).setView(layoutEnterPhoneAlarm)
@@ -39,7 +39,7 @@ public class EnterPhoneAlarmFragment extends DialogFragment implements
     @Override
     public void onClick(DialogInterface dialog, int which) {
         String phone = phoneAlarm.getText().toString();
-        DevicesAlarm.getInstance().basicAlarmProperty.setAlarmPhone(phone);
+        DevicesAlarm.getInstance().getBasicAlarmProperty().setAlarmPhone(phone);
         AdvancePreferences.addProperty(BasicAlarmProperty.NAME_PREFS_ALARM_PHONE, phone);
     }
 

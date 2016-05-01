@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,7 +18,7 @@ import com.example.cottagealarmandroid.app.activity.fragments.*;
 import com.example.cottagealarmandroid.app.activity.fragments.dialogs.EnterPhoneAlarmFragment;
 import com.example.cottagealarmandroid.app.adapters.TabsAdapter;
 import com.example.cottagealarmandroid.app.controllers.AdvancePreferences;
-import com.example.cottagealarmandroid.app.controllers.DevicesAlarm;
+import com.example.cottagealarmandroid.app.model.DevicesAlarm;
 import com.example.cottagealarmandroid.app.model.Relay;
 import com.example.cottagealarmandroid.app.service.SmsService;
 
@@ -71,20 +72,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void clickSMS(View v) {
         //Блок обработки СМСсервиса
-        String body = "01.01.13 12:04 1.+70000000 2.+7936589458 3.+7945362158 4.+7912356485";
+        //String body = "01.01.13 12:04 1.+70000000 2.+7936589458 3.+7945362158 4.+7912356485";
+        EditText et = (EditText) findViewById(R.id.editTextMain);
+        String txt = et.getText().toString();
+        String body = "01.01.13 12:04 1.+" + txt + " 2.+7936589458 3.+7945362158 4.+7912356485";
+
         Intent mIntent = new Intent(this, SmsService.class);
-        mIntent.putExtra("sms_body", body);
+        mIntent.putExtra(SmsService.SMS_KEY, body);
         startService(mIntent); //ЗАпускаем сервис обработки СМС сообщений
-
-        TextView tv = (TextView) findViewById(R.id.tv);
-        Intent intent = getIntent();
-
-        String fileName = intent.getStringExtra(FILE_NAME);
-//        Log.d(LOG_TAG, fileName);
-        Log.d(LOG_TAG, String.valueOf(tv));
-        if (!TextUtils.isEmpty(fileName))
-            tv.setText(fileName);
-
     }
 
     public void clickBtnStopService(View v) {

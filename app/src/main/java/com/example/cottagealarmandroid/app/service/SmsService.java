@@ -11,11 +11,11 @@ import android.widget.Toast;
 import com.example.cottagealarmandroid.app.R;
 import com.example.cottagealarmandroid.app.activity.MainActivity;
 import com.example.cottagealarmandroid.app.controllers.AdvancePreferences;
-import com.example.cottagealarmandroid.app.controllers.DevicesAlarm;
+import com.example.cottagealarmandroid.app.model.DevicesAlarm;
 import com.example.cottagealarmandroid.app.controllers.ProcessingSMS;
-import com.example.cottagealarmandroid.app.model.BasicAlarmProperty;
 
 public class SmsService extends Service {
+    public static final String SMS_KEY = "sms_body";
     final String LOG_TAG = "myLogs";
 
     NotificationManager notifyManager;
@@ -30,16 +30,16 @@ public class SmsService extends Service {
 
     public int onStartCommand(Intent intent, int flags, int startId) {
         NOTIFY_ID += 1;
-        String smsBody = intent.getExtras().getString("sms_body");
+        String smsBody = intent.getExtras().getString(SMS_KEY);
         AdvancePreferences.init(this);
 
         readSms(smsBody);
         showNotify(smsBody);
 
-        stopSelf();
-
         String bsp = DevicesAlarm.getInstance().getBasicAlarmProperty().getUserPhoneNumber(0);
         Toast.makeText(getBaseContext(), bsp, Toast.LENGTH_SHORT).show();
+
+        stopSelf();
         return super.onStartCommand(intent, flags, startId);
     }
 

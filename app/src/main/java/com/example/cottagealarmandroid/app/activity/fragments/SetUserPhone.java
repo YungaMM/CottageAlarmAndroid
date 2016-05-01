@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.example.cottagealarmandroid.app.R;
 import com.example.cottagealarmandroid.app.adapters.MyExpListAdapter;
 import com.example.cottagealarmandroid.app.controllers.AdvancePreferences;
-import com.example.cottagealarmandroid.app.controllers.DevicesAlarm;
+import com.example.cottagealarmandroid.app.model.DevicesAlarm;
 import com.example.cottagealarmandroid.app.model.UserPhones;
 
 
@@ -32,7 +32,7 @@ public class SetUserPhone extends FragmentActivity implements View.OnClickListen
         countPhone = getIntent().getIntExtra("phone", 0);
 
         devicesAlarm = DevicesAlarm.getInstance();
-        userPhone = devicesAlarm.basicAlarmProperty.getUserPhone(countPhone);
+        userPhone = devicesAlarm.getBasicAlarmProperty().getUserPhone(countPhone);
 
         phone = (EditText) findViewById(R.id.valueInputPhone);
         phone.setText(userPhone.getPhone());
@@ -54,7 +54,7 @@ public class SetUserPhone extends FragmentActivity implements View.OnClickListen
     public void onClick(View v) {
         String str = phone.getText().toString();
 
-        devicesAlarm.basicAlarmProperty.setUserPhone(countPhone, str);
+        devicesAlarm.getBasicAlarmProperty().setUserPhone(countPhone, str);
 
         AdvancePreferences.addProperty(userPhone.getNAME_PREFS_USER_PHONE(), str);
         AdvancePreferences.addProperty(userPhone.getNAME_PREFS_OPTIONS(), userPhone.getOptionString());

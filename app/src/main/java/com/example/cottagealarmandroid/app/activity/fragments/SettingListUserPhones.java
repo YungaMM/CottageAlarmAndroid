@@ -8,8 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.*;
 import com.example.cottagealarmandroid.app.R;
-import com.example.cottagealarmandroid.app.controllers.AdvancePreferences;
-import com.example.cottagealarmandroid.app.controllers.DevicesAlarm;
+import com.example.cottagealarmandroid.app.model.DevicesAlarm;
 import com.example.cottagealarmandroid.app.model.UserPhones;
 
 import java.util.*;

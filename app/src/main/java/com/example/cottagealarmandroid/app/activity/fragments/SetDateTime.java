@@ -9,7 +9,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import com.example.cottagealarmandroid.app.R;
 import com.example.cottagealarmandroid.app.controllers.AdvancePreferences;
-import com.example.cottagealarmandroid.app.controllers.DevicesAlarm;
+import com.example.cottagealarmandroid.app.model.DevicesAlarm;
 import com.example.cottagealarmandroid.app.model.BasicAlarmProperty;
 
 
@@ -36,14 +36,14 @@ public class SetDateTime extends FragmentActivity implements View.OnClickListene
                 , tp.getCurrentHour()
                 , tp.getCurrentMinute());
 
-        DevicesAlarm.getInstance().basicAlarmProperty.setTimeInDevice(str);
+        DevicesAlarm.getInstance().getBasicAlarmProperty().setTimeInDevice(str);
         AdvancePreferences.addProperty(BasicAlarmProperty.NAME_PREFS_TIME_IN_DEVICE, str);
 
         str = String.format("%02d.%02d.%s"
                 , dp.getDayOfMonth()
                 , dp.getMonth() + 1
                 , String.valueOf(dp.getYear()).substring(2));
-        DevicesAlarm.getInstance().basicAlarmProperty.setDateInDevice(str);
+        DevicesAlarm.getInstance().getBasicAlarmProperty().setDateInDevice(str);
         AdvancePreferences.addProperty(BasicAlarmProperty.NAME_PREFS_DATE_IN_DEVICE, str);
 
         Toast.makeText(this, "Надо вставить обработку отправления СМС команды, " +
