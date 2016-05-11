@@ -65,22 +65,21 @@ public class MainActivity extends AppCompatActivity {
         return relay;
     }
 
-
     public void clickReloadSettings(View v) {
         Toast.makeText(this, "Нажали обновить данные", Toast.LENGTH_SHORT).show();
     }
 
-    public void clickSMS(View v) {
-        //Блок обработки СМСсервиса
-        //String body = "01.01.13 12:04 1.+70000000 2.+7936589458 3.+7945362158 4.+7912356485";
-        EditText et = (EditText) findViewById(R.id.editTextMain);
-        String txt = et.getText().toString();
-        String body = "01.01.13 12:04 1.+" + txt + " 2.+7936589458 3.+7945362158 4.+7912356485";
-
-        Intent mIntent = new Intent(this, SmsService.class);
-        mIntent.putExtra(SmsService.SMS_KEY, body);
-        startService(mIntent); //ЗАпускаем сервис обработки СМС сообщений
-    }
+//    public void clickSMS(View v) {
+//        //Блок обработки СМСсервиса
+//        //String body = "01.01.13 12:04 1.+70000000 2.+7936589458 3.+7945362158 4.+7912356485";
+//        EditText et = (EditText) findViewById(R.id.editTextMain);
+//        String txt = et.getText().toString();
+//        String body = "01.01.13 12:04 1.+" + txt + " 2.+7936589458 3.+7945362158 4.+7912356485";
+//
+//        Intent mIntent = new Intent(this, SmsService.class);
+//        mIntent.putExtra(SmsService.SMS_KEY, body);
+//        startService(mIntent); //ЗАпускаем сервис обработки СМС сообщений
+//    }
 
     public void clickBtnStopService(View v) {
         stopService(new Intent(this, SmsService.class));
@@ -95,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         switch (item.getItemId()) {
             case R.id.item_phone_alarm:
                 new EnterPhoneAlarmFragment().show(getSupportFragmentManager(), "PhoneAlarm");
@@ -110,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Limit temperature", Toast.LENGTH_SHORT).show();
                 return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -121,11 +118,9 @@ public class MainActivity extends AppCompatActivity {
         ViewPager mViewPager = (ViewPager) findViewById(R.id.pager);
 
         TabsAdapter mTabsAdapter = new TabsAdapter(this, mTabHost, mViewPager);
-
         mTabsAdapter.addTab(mTabHost.newTabSpec("Основной экран")
                         .setIndicator(getString(R.string.stateAlarm))
                 , BasicViewFragment.class, null);
-
         mTabsAdapter.addTab(mTabHost.newTabSpec("Экран реле")
                         .setIndicator(getString(R.string.managementRelay))
                 , RelayFragment.class, null);

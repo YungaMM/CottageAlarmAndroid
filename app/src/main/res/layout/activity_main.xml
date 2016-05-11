@@ -32,23 +32,6 @@
 				android:text="@string/btnReloadSettings"
 				android:id="@+id/btnReloadSettings" android:layout_gravity="center_horizontal" android:layout_weight="0"
 				android:onClick="clickReloadSettings"/>
-		<Button
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="Стоп сервис"
-				android:id="@+id/btnStopService"
-				android:layout_gravity="right"
-				android:layout_weight="0"
-				android:onClick="clickBtnStopService"/>
-		<EditText
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:id="@+id/editTextMain" android:layout_weight="0"/>
-		<Button
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="SendSMS"
-				android:id="@+id/btnSms" android:layout_weight="0" android:onClick="clickSMS"/>
 
 	</LinearLayout>
 
