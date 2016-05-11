@@ -55,7 +55,7 @@ public class BasicViewFragment extends Fragment implements
             }
         }
     }
-//*******
+//*****
     @Override
     public void onCheckedChanged(CompoundButton relayButton, boolean isChecked) {
         switch (relayButton.getId()){
