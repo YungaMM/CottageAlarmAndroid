@@ -10,12 +10,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 import com.example.cottagealarmandroid.app.R;
+import com.example.cottagealarmandroid.app.controllers.AdvancePreferences;
+import com.example.cottagealarmandroid.app.controllers.ProcessingSMS;
+import com.example.cottagealarmandroid.app.controllers.SmsCommandsAlarm;
 import com.example.cottagealarmandroid.app.model.DevicesAlarm;
+import com.example.cottagealarmandroid.app.model.Relay;
 
 public class BasicViewFragment extends Fragment implements
         CompoundButton.OnCheckedChangeListener{
 
+    private static final String RELAY_MODE_CONTROL = "1"; //Включение реле на заданное время
     private TextView dateAlarm;
+    private Relay[] relay;
     private ToggleButton tgBtn, tgBtn2, tgBtn3;
 
     @Override
@@ -23,9 +29,9 @@ public class BasicViewFragment extends Fragment implements
         View view = inflater.inflate(R.layout.basic_view, container, false);
 
         dateAlarm = (TextView) view.findViewById(R.id.valueStateOnDate);
-        tgBtn = (ToggleButton) view.findViewById(R.id.toggleButton);
-        tgBtn2 = (ToggleButton) view.findViewById(R.id.toggleButton2);
-        tgBtn3 = (ToggleButton) view.findViewById(R.id.toggleButton3);
+        tgBtn = (ToggleButton) view.findViewById(R.id.relay4Btn);
+        tgBtn2 = (ToggleButton) view.findViewById(R.id.relay5Btn);
+        tgBtn3 = (ToggleButton) view.findViewById(R.id.relay6Btn);
 
         tgBtn.setOnCheckedChangeListener(this);
         tgBtn2.setOnCheckedChangeListener(this);
@@ -39,25 +45,45 @@ public class BasicViewFragment extends Fragment implements
         super.onResume();
 
         dateAlarm.setText(DevicesAlarm.getInstance().getBasicAlarmProperty().getDateInDevice());
-        if(DevicesAlarm.getInstance().getRelay(3).getModeControl().equals("0")){
-            tgBtn.setChecked(true);
-        } else {
-            tgBtn.setChecked(false);
+        //Устанавливаем значения кнопок Реле согласно записанным установкам
+        relay = DevicesAlarm.getInstance().getRelays();
+        for (int i = 3; i < relay.length; i++) {
+            if(relay[i].getModeControl().equals("0")){
+                tgBtn.setChecked(false);
+            } else {
+                tgBtn.setChecked(true);
+            }
         }
     }
 
     @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        switch (buttonView.getId()){
-            case R.id.toggleButton:
-                Toast.makeText(getContext(),"Reley 4", Toast.LENGTH_SHORT).show();
+    public void onCheckedChanged(CompoundButton relayButton, boolean isChecked) {
+        switch (relayButton.getId()){
+            case R.id.relay4Btn:
+                setRelay(relay[3], isChecked);
                 break;
-            case R.id.toggleButton2:
-                Toast.makeText(getContext(),"Reley 5", Toast.LENGTH_SHORT).show();
+            case R.id.relay5Btn:
+                setRelay(relay[4], isChecked);
                 break;
-            case R.id.toggleButton3:
-                Toast.makeText(getContext(),"Reley 6", Toast.LENGTH_SHORT).show();
+            case R.id.relay6Btn:
+                setRelay(relay[5], isChecked);
                 break;
         }
+    }
+
+    private void setRelay(Relay relay, boolean tgBtnChecked){
+        String sms;
+        if (tgBtnChecked){
+            sms = SmsCommandsAlarm.createSmsRelay(relay,"00","00");
+        }
+        else {
+           sms = SmsCommandsAlarm.createSmsRelayOff(relay);
+        }
+        relay.setSmsCommand(sms);
+        AdvancePreferences.addProperty(relay.getNAME_PREFS_SMS(), sms);
+        relay.setModeControl(RELAY_MODE_CONTROL);
+        AdvancePreferences.addProperty(relay.getNAME_PREFS_MODE_CONTROL(),RELAY_MODE_CONTROL);
+
+        ProcessingSMS.sendSms(getContext(),sms);
     }
 }

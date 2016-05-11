@@ -27,6 +27,7 @@ public class ProcessingSMS {
         if (!phone.equals("")) {
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phone, null, textSms, null, null);
+            Toast.makeText(context,textSms,Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(context, "Укажите номер телефона устройства", Toast.LENGTH_SHORT).show();
         }

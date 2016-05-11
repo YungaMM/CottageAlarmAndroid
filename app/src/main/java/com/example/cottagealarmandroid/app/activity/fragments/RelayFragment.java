@@ -82,7 +82,6 @@ public class RelayFragment extends Fragment {
             AdvancePreferences.addProperty(relays[groupPosition].getNAME_PREFS_MODE_CONTROL(), str);
 
             ProcessingSMS.sendSms(getContext(),sms);
-            Toast.makeText(getContext(), relay.getSmsCommand(), Toast.LENGTH_SHORT).show();
 
             TextView textExistChild = (TextView) v.findViewById(android.R.id.text1);
             adapter.setExistChild(groupPosition, String.valueOf(textExistChild.getText()));
