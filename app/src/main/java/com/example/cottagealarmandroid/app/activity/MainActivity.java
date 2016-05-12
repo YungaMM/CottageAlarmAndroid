@@ -23,7 +23,8 @@ import com.example.cottagealarmandroid.app.model.Relay;
 import com.example.cottagealarmandroid.app.service.SmsService;
 
 public class MainActivity extends AppCompatActivity {
-    final String LOG_TAG = "myLogs"; //переменная для чтения ЛОГа
+    //переменная для чтения ЛОГа
+    final String LOG_TAG = "myLogs"; //this.getClass().getSimpleName();
     public final static String FILE_NAME = "filename";
 
     @Override

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,9 @@ import com.example.cottagealarmandroid.app.model.Relay;
 
 
 public class RelayFragment extends Fragment {
+    //переменная для чтения ЛОГа
+    final String LOG_TAG = "myLogs"; //this.getClass().getSimpleName();
+
     private static final int REQUEST_OFF = 1;
     private static final int REQUEST_ON = 2;
 
@@ -45,6 +49,11 @@ public class RelayFragment extends Fragment {
 
         devicesAlarm = DevicesAlarm.getInstance();
         relays = devicesAlarm.getRelays();
+        for (int i = 0; i < relays.length; i++) {
+            String log = "i=" + i + " relay[i].getName=" + relays[i].getName() +
+                    " relays[i].getModeControl()=" + relays[i].getModeControl();
+            Log.i(LOG_TAG, log);
+        }
 
         String[] modeControl = getResources().getStringArray(R.array.modeControl);
 
@@ -81,7 +90,7 @@ public class RelayFragment extends Fragment {
             relays[groupPosition].setModeControl(str);
             AdvancePreferences.addProperty(relays[groupPosition].getNAME_PREFS_MODE_CONTROL(), str);
 
-            ProcessingSMS.sendSms(getContext(),sms);
+            ProcessingSMS.sendSms(getContext(), sms);
 
             TextView textExistChild = (TextView) v.findViewById(android.R.id.text1);
             adapter.setExistChild(groupPosition, String.valueOf(textExistChild.getText()));

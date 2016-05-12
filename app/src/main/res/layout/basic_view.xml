@@ -101,20 +101,20 @@
 	<ToggleButton
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="New ToggleButton"
+			android:text="Button Relay4"
 			android:id="@+id/relay4Btn"
 			android:layout_below="@+id/textRelay4" android:layout_alignLeft="@+id/textEnergy"
 			android:layout_alignStart="@+id/textEnergy" android:layout_marginTop="26dp" android:checked="false"/>
 	<ToggleButton
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="New ToggleButton"
+			android:text="Button Relay5"
 			android:id="@+id/relay5Btn"
 			android:layout_alignTop="@+id/relay4Btn" android:layout_centerHorizontal="true" android:checked="false"/>
 	<ToggleButton
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="New ToggleButton"
+			android:text="Button Relay6"
 			android:id="@+id/relay6Btn"
 			android:layout_alignTop="@+id/relay5Btn" android:layout_alignRight="@+id/textRelay6"
 			android:layout_alignEnd="@+id/textRelay6" android:checked="false"/>
