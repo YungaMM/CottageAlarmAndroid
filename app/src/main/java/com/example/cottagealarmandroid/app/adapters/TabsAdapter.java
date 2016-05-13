@@ -10,7 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
 import android.widget.TabWidget;
+import android.widget.Toast;
+import com.example.cottagealarmandroid.app.activity.fragments.BasicViewFragment;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 public class TabsAdapter extends FragmentPagerAdapter implements TabHost.OnTabChangeListener,
@@ -18,7 +21,7 @@ public class TabsAdapter extends FragmentPagerAdapter implements TabHost.OnTabCh
     private final Context mContext;
     private final TabHost mTabHost;
     private final ViewPager mViewPager;
-    private final ArrayList<TabInfo> mTabs = new ArrayList<TabInfo>();
+    private final ArrayList<TabInfo> mTabs = new ArrayList<>();
 
     static final class TabInfo {
         private final String tag;
@@ -91,16 +94,23 @@ public class TabsAdapter extends FragmentPagerAdapter implements TabHost.OnTabCh
 
     @Override
     public void onPageSelected(final int position) {
-        // Unfortunately when TabHost changes the current tab, it kindly
-        // also takes care of putting focus on it when not in touch mode.
-        // The jerk.
-        // This hack tries to prevent this from pulling focus out of our
-        // ViewPager.
+//         Unfortunately when TabHost changes the current tab, it kindly
+//         also takes care of putting focus on it when not in touch mode.
+//         The jerk.
+//         This hack tries to prevent this from pulling focus out of our
+//         ViewPager.
         TabWidget widget = mTabHost.getTabWidget();
         int oldFocusability = widget.getDescendantFocusability();
         widget.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
         mTabHost.setCurrentTab(position);
         widget.setDescendantFocusability(oldFocusability);
+
+        TabInfo tabInfo = mTabs.get(position);
+        Fragment fragment = Fragment.instantiate(mContext, tabInfo.clss.getName(), tabInfo.args);
+        fragment.onViewStateRestored(null);
+        String str = "Преключили вкладку => " + "position=" + position;
+        Toast.makeText(mContext, str,Toast.LENGTH_SHORT).show();
+
     }
 
     @Override

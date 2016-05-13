@@ -1,5 +1,6 @@
 package com.example.cottagealarmandroid.app.activity.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -25,6 +26,7 @@ public class BasicViewFragment extends Fragment implements
 
     //переменная для чтения ЛОГа
     final String LOG_TAG = "myLogs"; //this.getClass().getSimpleName();
+    final String NAME_RESTORED_VIEW_METOD = "onViewStateRestored";
 
     private static final String RELAY_MODE_CONTROL = "1"; //Включение реле на заданное время
     private TextView dateAlarm;
@@ -34,18 +36,22 @@ public class BasicViewFragment extends Fragment implements
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.basic_view, container, false);
+        View fragmentView = inflater.inflate(R.layout.basic_view, container, false);
 
-        dateAlarm = (TextView) view.findViewById(R.id.valueStateOnDate);
-        tgBtn = (ToggleButton) view.findViewById(R.id.relay4Btn);
-        tgBtn2 = (ToggleButton) view.findViewById(R.id.relay5Btn);
-        tgBtn3 = (ToggleButton) view.findViewById(R.id.relay6Btn);
+        dateAlarm = (TextView) fragmentView.findViewById(R.id.valueStateOnDate);
+        tgBtn = (ToggleButton) fragmentView.findViewById(R.id.relay4Btn);
+        tgBtn2 = (ToggleButton) fragmentView.findViewById(R.id.relay5Btn);
+        tgBtn3 = (ToggleButton) fragmentView.findViewById(R.id.relay6Btn);
 
         groupTgBtn.add(tgBtn);
         groupTgBtn.add(tgBtn2);
         groupTgBtn.add(tgBtn3);
 
-        return view;
+        for (int i = 0; i < groupTgBtn.size(); i++) {
+            groupTgBtn.get(i).setOnCheckedChangeListener(this);
+        }
+
+        return fragmentView;
     }
 
     @Override
@@ -54,7 +60,6 @@ public class BasicViewFragment extends Fragment implements
 
         //Устанавливаем значения кнопок Реле согласно записанным установкам
         relay = DevicesAlarm.getInstance().getRelays();
-
         for (int i = 0; i < relay.length-3; i++) {
             if(relay[i+3].getModeControl().equals("0")){
                 groupTgBtn.get(i).setChecked(false);
@@ -65,16 +70,12 @@ public class BasicViewFragment extends Fragment implements
                     " tgBtn=" + groupTgBtn.get(i).getId() +
                     " tgBtn.isChecked()=" + groupTgBtn.get(i).isChecked();
             Log.i(LOG_TAG, log);
-
-            groupTgBtn.get(i).setOnCheckedChangeListener(this);
         }
-
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
         dateAlarm.setText(DevicesAlarm.getInstance().getBasicAlarmProperty().getDateInDevice());
     }
 
