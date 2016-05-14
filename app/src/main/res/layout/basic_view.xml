@@ -118,5 +118,11 @@
 			android:id="@+id/relay6Btn"
 			android:layout_alignTop="@+id/relay5Btn" android:layout_alignRight="@+id/textRelay6"
 			android:layout_alignEnd="@+id/textRelay6" android:checked="false"/>
+	<Button
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Послать Смс Реле"
+			android:id="@+id/smsRelayBtn" android:layout_below="@+id/relay4Btn" android:layout_centerHorizontal="true"
+			android:layout_marginTop="25dp"/>
 
 </RelativeLayout>

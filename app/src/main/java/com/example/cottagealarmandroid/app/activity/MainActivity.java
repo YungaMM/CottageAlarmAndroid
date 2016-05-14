@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void clickReloadSettings(View v) {
-        Toast.makeText(this, "Нажали обновить данные", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Нажали обновить данные", Toast.LENGTH_SHORT).show();
     }
 
 //    public void clickSMS(View v) {

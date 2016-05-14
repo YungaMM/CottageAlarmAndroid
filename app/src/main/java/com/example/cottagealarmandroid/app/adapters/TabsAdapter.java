@@ -105,11 +105,11 @@ public class TabsAdapter extends FragmentPagerAdapter implements TabHost.OnTabCh
         mTabHost.setCurrentTab(position);
         widget.setDescendantFocusability(oldFocusability);
 
-        TabInfo tabInfo = mTabs.get(position);
-        Fragment fragment = Fragment.instantiate(mContext, tabInfo.clss.getName(), tabInfo.args);
-        fragment.onViewStateRestored(null);
-        String str = "Преключили вкладку => " + "position=" + position;
-        Toast.makeText(mContext, str,Toast.LENGTH_SHORT).show();
+//        TabInfo tabInfo = mTabs.get(position);
+//        Fragment fragment = Fragment.instantiate(mContext, tabInfo.clss.getName(), tabInfo.args);
+//        fragment.onViewStateRestored(null);
+//        String str = "Преключили вкладку => " + "position=" + position;
+//        Toast.makeText(mContext, str,Toast.LENGTH_SHORT).show();
 
     }
 
