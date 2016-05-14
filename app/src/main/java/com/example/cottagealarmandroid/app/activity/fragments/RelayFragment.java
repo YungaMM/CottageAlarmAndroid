@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import com.example.cottagealarmandroid.app.R;
 import com.example.cottagealarmandroid.app.activity.fragments.dialogs.RelayOff;
 import com.example.cottagealarmandroid.app.activity.fragments.dialogs.RelayTimePeriod;
 import com.example.cottagealarmandroid.app.adapters.MyExpListAdapter;
-import com.example.cottagealarmandroid.app.controllers.AdvancePreferences;
 import com.example.cottagealarmandroid.app.model.DevicesAlarm;
 import com.example.cottagealarmandroid.app.controllers.ProcessingSMS;
 import com.example.cottagealarmandroid.app.controllers.SmsCommandsAlarm;
@@ -25,7 +23,7 @@ import com.example.cottagealarmandroid.app.model.Relay;
 
 public class RelayFragment extends Fragment {
     //переменная для чтения ЛОГа
-    final String LOG_TAG = "myLogs"; //this.getClass().getSimpleName();
+//    final String LOG_TAG = "myLogs"; //this.getClass().getSimpleName();
 
     private static final int REQUEST_OFF = 1;
     private static final int REQUEST_ON = 2;
@@ -79,16 +77,10 @@ public class RelayFragment extends Fragment {
                     break;
             }
             relay.setSmsCommand(sms, childPosition);
-//            AdvancePreferences.addProperty(relay.getNAME_PREFS_SMS(), sms);
-//            String str = String.valueOf(childPosition);
-//            relays[groupPosition].setModeControl(str);
-//            AdvancePreferences.addProperty(relays[groupPosition].getNAME_PREFS_MODE_CONTROL(), str);
-
             ProcessingSMS.sendSms(getContext(), sms);
 
             TextView textExistChild = (TextView) v.findViewById(android.R.id.text1);
             adapter.setExistChild(groupPosition, String.valueOf(textExistChild.getText()));
-
             expListView.setAdapter(adapter);
         }
     }

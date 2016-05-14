@@ -1,16 +1,12 @@
 package com.example.cottagealarmandroid.app.activity.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.example.cottagealarmandroid.app.R;
-import com.example.cottagealarmandroid.app.controllers.AdvancePreferences;
 import com.example.cottagealarmandroid.app.controllers.ProcessingSMS;
 import com.example.cottagealarmandroid.app.controllers.SmsCommandsAlarm;
 import com.example.cottagealarmandroid.app.model.DevicesAlarm;
@@ -28,7 +24,7 @@ public class BasicViewFragment extends Fragment implements
     private static final String RELAY_MODE_CONTROL = "1"; //Включение реле на заданное время
     private TextView dateAlarm;
     private Relay[] relay;
-    private ToggleButton tgBtn, tgBtn2, tgBtn3;
+    private ToggleButton relay4Btn, relay5Btn, relay6Btn;
     private ArrayList<ToggleButton> groupTgBtn = new ArrayList<>();
     private Button smsRelayBtn;
 
@@ -41,12 +37,12 @@ public class BasicViewFragment extends Fragment implements
         smsRelayBtn = (Button) fragmentView.findViewById(R.id.smsRelayBtn);
         smsRelayBtn.setOnClickListener(this);
 
-        tgBtn = (ToggleButton) fragmentView.findViewById(R.id.relay4Btn);
-        tgBtn2 = (ToggleButton) fragmentView.findViewById(R.id.relay5Btn);
-        tgBtn3 = (ToggleButton) fragmentView.findViewById(R.id.relay6Btn);
-        groupTgBtn.add(tgBtn);
-        groupTgBtn.add(tgBtn2);
-        groupTgBtn.add(tgBtn3);
+        relay4Btn = (ToggleButton) fragmentView.findViewById(R.id.relay4Btn);
+        relay5Btn = (ToggleButton) fragmentView.findViewById(R.id.relay5Btn);
+        relay6Btn = (ToggleButton) fragmentView.findViewById(R.id.relay6Btn);
+        groupTgBtn.add(relay4Btn);
+        groupTgBtn.add(relay5Btn);
+        groupTgBtn.add(relay6Btn);
 
         for (int i = 0; i < groupTgBtn.size(); i++) {
             groupTgBtn.get(i).setOnClickListener(this);
@@ -102,34 +98,37 @@ public class BasicViewFragment extends Fragment implements
         int modeControl;
         if (tgBtnChecked) {
             sms = SmsCommandsAlarm.createSmsRelay(relay, "00", "00");
-            modeControl=1;
+            modeControl = 1;
         } else {
             sms = SmsCommandsAlarm.createSmsRelayOff(relay);
-            modeControl=0;
+            modeControl = 0;
         }
-        relay.setSmsCommand(sms,modeControl);
-//        AdvancePreferences.addProperty(relay.getNAME_PREFS_SMS(), sms);
-//        relay.setModeControl(RELAY_MODE_CONTROL);
-//        AdvancePreferences.addProperty(relay.getNAME_PREFS_MODE_CONTROL(), RELAY_MODE_CONTROL);
-
+        relay.setSmsCommand(sms, modeControl);
         ProcessingSMS.sendSms(getContext(), sms);
     }
 
-
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        int relayId = 0;
+        boolean isChecked = false;
+        switch (view.getId()) {
             case R.id.relay4Btn:
-
+                isChecked = relay4Btn.isChecked();
+                relayId = 3;
                 break;
             case R.id.relay5Btn:
-
+                isChecked = relay5Btn.isChecked();
+                relayId = 4;
                 break;
             case R.id.relay6Btn:
-
+                isChecked = relay6Btn.isChecked();
+                relayId = 5;
                 break;
-
+            case R.id.smsRelayBtn:
+                break;
         }
-        Toast.makeText(getContext(), "Нажали smsRelayBtn", Toast.LENGTH_SHORT).show();
+        if (relayId != 0) {
+            setRelay(relay[relayId], isChecked);
+        }
     }
 }
