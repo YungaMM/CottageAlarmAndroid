@@ -99,15 +99,18 @@ public class BasicViewFragment extends Fragment implements
 
     private void setRelay(Relay relay, boolean tgBtnChecked) {
         String sms;
+        int modeControl;
         if (tgBtnChecked) {
             sms = SmsCommandsAlarm.createSmsRelay(relay, "00", "00");
+            modeControl=1;
         } else {
             sms = SmsCommandsAlarm.createSmsRelayOff(relay);
+            modeControl=0;
         }
-        relay.setSmsCommand(sms);
-        AdvancePreferences.addProperty(relay.getNAME_PREFS_SMS(), sms);
-        relay.setModeControl(RELAY_MODE_CONTROL);
-        AdvancePreferences.addProperty(relay.getNAME_PREFS_MODE_CONTROL(), RELAY_MODE_CONTROL);
+        relay.setSmsCommand(sms,modeControl);
+//        AdvancePreferences.addProperty(relay.getNAME_PREFS_SMS(), sms);
+//        relay.setModeControl(RELAY_MODE_CONTROL);
+//        AdvancePreferences.addProperty(relay.getNAME_PREFS_MODE_CONTROL(), RELAY_MODE_CONTROL);
 
         ProcessingSMS.sendSms(getContext(), sms);
     }

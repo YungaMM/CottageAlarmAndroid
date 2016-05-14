@@ -54,7 +54,13 @@ public class Relay {
         return smsCommand;
     }
 
-    public void setSmsCommand(String smsCommand) {
+    public void setSmsCommand(String smsCommand, int modeControl) {
+        AdvancePreferences.addProperty(getNAME_PREFS_SMS(), smsCommand);
+        setModeControl(String.valueOf(modeControl));
+        AdvancePreferences.addProperty(getNAME_PREFS_MODE_CONTROL(), getModeControl());
+        this.smsCommand = smsCommand;
+    }
+   public void setSmsCommand(String smsCommand) {
         this.smsCommand = smsCommand;
     }
 

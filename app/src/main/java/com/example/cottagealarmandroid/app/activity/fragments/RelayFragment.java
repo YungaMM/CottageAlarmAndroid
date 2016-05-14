@@ -49,11 +49,6 @@ public class RelayFragment extends Fragment {
 
         devicesAlarm = DevicesAlarm.getInstance();
         relays = devicesAlarm.getRelays();
-        for (int i = 0; i < relays.length; i++) {
-            String log = "i=" + i + " relay[i].getName=" + relays[i].getName() +
-                    " relays[i].getModeControl()=" + relays[i].getModeControl();
-            Log.i(LOG_TAG, log);
-        }
 
         String[] modeControl = getResources().getStringArray(R.array.modeControl);
 
@@ -62,7 +57,6 @@ public class RelayFragment extends Fragment {
         expListView = (ExpandableListView) view.findViewById(R.id.expListViewRelay);
         expListView.setAdapter(adapter);
         expListListener(adapter);
-
 
         return view;
     }
@@ -84,11 +78,11 @@ public class RelayFragment extends Fragment {
                     sms = SmsCommandsAlarm.createSmsRelay(relay, minute, sec);
                     break;
             }
-            relay.setSmsCommand(sms);
-            AdvancePreferences.addProperty(relay.getNAME_PREFS_SMS(), sms);
-            String str = String.valueOf(childPosition);
-            relays[groupPosition].setModeControl(str);
-            AdvancePreferences.addProperty(relays[groupPosition].getNAME_PREFS_MODE_CONTROL(), str);
+            relay.setSmsCommand(sms, childPosition);
+//            AdvancePreferences.addProperty(relay.getNAME_PREFS_SMS(), sms);
+//            String str = String.valueOf(childPosition);
+//            relays[groupPosition].setModeControl(str);
+//            AdvancePreferences.addProperty(relays[groupPosition].getNAME_PREFS_MODE_CONTROL(), str);
 
             ProcessingSMS.sendSms(getContext(), sms);
 
