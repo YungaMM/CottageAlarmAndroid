@@ -1,5 +1,6 @@
 package com.example.cottagealarmandroid.app.activity.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,18 +16,15 @@ import com.example.cottagealarmandroid.app.model.Relay;
 import java.util.ArrayList;
 
 public class BasicViewFragment extends Fragment implements
-//        CompoundButton.OnCheckedChangeListener,
         View.OnClickListener {
 
     //переменная для чтения ЛОГа
     final String LOG_TAG = "myLogs"; //this.getClass().getSimpleName();
 
-    private static final String RELAY_MODE_CONTROL = "1"; //Включение реле на заданное время
     private TextView dateAlarm;
     private Relay[] relay;
     private ToggleButton relay4Btn, relay5Btn, relay6Btn;
     private ArrayList<ToggleButton> groupTgBtn = new ArrayList<>();
-    private Button smsRelayBtn;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
@@ -34,19 +32,14 @@ public class BasicViewFragment extends Fragment implements
 
         dateAlarm = (TextView) fragmentView.findViewById(R.id.valueStateOnDate);
 
-        smsRelayBtn = (Button) fragmentView.findViewById(R.id.smsRelayBtn);
-        smsRelayBtn.setOnClickListener(this);
-
         relay4Btn = (ToggleButton) fragmentView.findViewById(R.id.relay4Btn);
         relay5Btn = (ToggleButton) fragmentView.findViewById(R.id.relay5Btn);
         relay6Btn = (ToggleButton) fragmentView.findViewById(R.id.relay6Btn);
         groupTgBtn.add(relay4Btn);
         groupTgBtn.add(relay5Btn);
         groupTgBtn.add(relay6Btn);
-
         for (int i = 0; i < groupTgBtn.size(); i++) {
             groupTgBtn.get(i).setOnClickListener(this);
-//            groupTgBtn.get(i).setOnCheckedChangeListener(this);
         }
 
         return fragmentView;
@@ -66,32 +59,6 @@ public class BasicViewFragment extends Fragment implements
             relayId++;
         }
     }
-
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-    }
-
-//    @Override
-//    public void onCheckedChanged(CompoundButton relayButton, boolean isChecked) {
-//        int relayId = 0;
-//        switch (relayButton.getId()) {
-//            case R.id.relay4Btn:
-//                relayId = 3;
-//                break;
-//            case R.id.relay5Btn:
-//                relayId = 4;
-//                break;
-//            case R.id.relay6Btn:
-//                relayId = 5;
-//                break;
-//        }
-//        if (relayId != 0) {
-//            Toast.makeText(getContext(), "Зашли в  onCheckedChanged", Toast.LENGTH_SHORT).show();
-//            setRelay(relay[relayId], isChecked);
-//        }
-//
-//    }
 
     private void setRelay(Relay relay, boolean tgBtnChecked) {
         String sms;
@@ -124,11 +91,11 @@ public class BasicViewFragment extends Fragment implements
                 isChecked = relay6Btn.isChecked();
                 relayId = 5;
                 break;
-            case R.id.smsRelayBtn:
-                break;
         }
         if (relayId != 0) {
             setRelay(relay[relayId], isChecked);
+//            Fragment fragment = Fragment.instantiate(getContext(), RelayFragment.class.getName());
+//            fragment.onActivityResult(Activity.RESULT_OK,);
         }
     }
 }

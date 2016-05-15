@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 import com.example.cottagealarmandroid.app.R;
 import com.example.cottagealarmandroid.app.activity.fragments.dialogs.RelayOff;
 import com.example.cottagealarmandroid.app.activity.fragments.dialogs.RelayTimePeriod;
@@ -19,6 +20,8 @@ import com.example.cottagealarmandroid.app.model.DevicesAlarm;
 import com.example.cottagealarmandroid.app.controllers.ProcessingSMS;
 import com.example.cottagealarmandroid.app.controllers.SmsCommandsAlarm;
 import com.example.cottagealarmandroid.app.model.Relay;
+
+import java.util.ArrayList;
 
 
 public class RelayFragment extends Fragment {
@@ -37,26 +40,36 @@ public class RelayFragment extends Fragment {
     private int groupPosition, childPosition;
     private MyExpListAdapter adapter;
     private Fragment relayFragment;
+    private View relayFragmentView;
+
+    //ToggleButton из BasicViewFragment
+    private ToggleButton relay4Btn, relay5Btn, relay6Btn;
+    private ArrayList<ToggleButton> groupTgBtn = new ArrayList<>();
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              final Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.relay_view, container, false);
-
+        relayFragmentView = inflater.inflate(R.layout.relay_view, container, false);
         relayFragment = this;//Используем для ссылки в Listener
 
         devicesAlarm = DevicesAlarm.getInstance();
         relays = devicesAlarm.getRelays();
-
         String[] modeControl = getResources().getStringArray(R.array.modeControl);
 
-        adapter = new MyExpListAdapter(view.getContext(), getNameRelayStr(),
+        adapter = new MyExpListAdapter(relayFragmentView.getContext(), getNameRelayStr(),
                 modeControl, getModeControlStr());
-        expListView = (ExpandableListView) view.findViewById(R.id.expListViewRelay);
+        expListView = (ExpandableListView) relayFragmentView.findViewById(R.id.expListViewRelay);
         expListView.setAdapter(adapter);
         expListListener(adapter);
 
-        return view;
+        relay4Btn = (ToggleButton) getActivity().findViewById(R.id.relay4Btn);
+        relay5Btn = (ToggleButton) getActivity().findViewById(R.id.relay5Btn);
+        relay6Btn = (ToggleButton) getActivity().findViewById(R.id.relay6Btn);
+        groupTgBtn.add(relay4Btn);
+        groupTgBtn.add(relay5Btn);
+        groupTgBtn.add(relay6Btn);
+
+        return relayFragmentView;
     }
 
     @Override
@@ -64,20 +77,26 @@ public class RelayFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         String sms = "";
         Relay relay = relays[groupPosition];
+        Boolean checkRelay = false;
 
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_OFF:
                     sms = SmsCommandsAlarm.createSmsRelayOff(relay);
+                    checkRelay = false;
                     break;
                 case REQUEST_ON:
                     String minute = data.getStringExtra(RelayTimePeriod.TAG_MIN);
                     String sec = data.getStringExtra(RelayTimePeriod.TAG_SEC);
                     sms = SmsCommandsAlarm.createSmsRelay(relay, minute, sec);
+                    checkRelay = true;
                     break;
             }
+
             relay.setSmsCommand(sms, childPosition);
             ProcessingSMS.sendSms(getContext(), sms);
+            if (relay.getCount() >= 3)
+                groupTgBtn.get(relay.getCount()-3).setChecked(checkRelay);
 
             TextView textExistChild = (TextView) v.findViewById(android.R.id.text1);
             adapter.setExistChild(groupPosition, String.valueOf(textExistChild.getText()));
@@ -92,9 +111,7 @@ public class RelayFragment extends Fragment {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition,
                                         int childPosition, long id) {
-
                 setListParameters(v, groupPosition, childPosition);
-
                 switch (childPosition) {
                     case (0):
                         openDialog(new RelayOff(), REQUEST_OFF);
@@ -118,7 +135,6 @@ public class RelayFragment extends Fragment {
                         Toast.makeText(v.getContext(), "Обработка режима управления не установлена. " +
                                 "Обратитесь к разработчику.", Toast.LENGTH_LONG).show();
                 }
-
                 expListView.collapseGroup(groupPosition);
                 return false;
             }

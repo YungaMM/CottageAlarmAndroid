@@ -12,8 +12,6 @@ import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.Toast;
 import com.example.cottagealarmandroid.app.activity.fragments.BasicViewFragment;
-
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 public class TabsAdapter extends FragmentPagerAdapter implements TabHost.OnTabChangeListener,
@@ -103,14 +101,12 @@ public class TabsAdapter extends FragmentPagerAdapter implements TabHost.OnTabCh
         int oldFocusability = widget.getDescendantFocusability();
         widget.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
         mTabHost.setCurrentTab(position);
-        widget.setDescendantFocusability(oldFocusability);
 
 //        TabInfo tabInfo = mTabs.get(position);
 //        Fragment fragment = Fragment.instantiate(mContext, tabInfo.clss.getName(), tabInfo.args);
-//        fragment.onViewStateRestored(null);
+//        fragment.onResume();
 //        String str = "Преключили вкладку => " + "position=" + position;
 //        Toast.makeText(mContext, str,Toast.LENGTH_SHORT).show();
-
     }
 
     @Override
