@@ -1,4 +1,4 @@
-package com.example.cottagealarmandroid.app.service;
+package com.example.cottagealarmandroid.app.controllers;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -6,8 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
+import com.example.cottagealarmandroid.app.service.SmsService;
 
-public class DeliverySms extends BroadcastReceiver {
+public class DeliverySmsReceiver extends BroadcastReceiver {
 
     private final static String MY_TAG = "MyTag";
 

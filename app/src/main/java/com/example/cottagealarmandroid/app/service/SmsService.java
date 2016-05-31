@@ -30,7 +30,7 @@ public class SmsService extends Service {
 
     public int onStartCommand(Intent intent, int flags, int startId) {
         NOTIFY_ID += 1;
-        String smsBody = intent.getExtras().getString(SMS_KEY);
+        String smsBody = intent.getStringExtra(SMS_KEY);
         AdvancePreferences.init(this);
 
         readSms(smsBody);
@@ -50,9 +50,7 @@ public class SmsService extends Service {
 
     void showNotify(final String smsBody) {
         Intent intent = new Intent(this, MainActivity.class);
-
         intent.putExtra(MainActivity.FILE_NAME, smsBody);
-
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                 | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 

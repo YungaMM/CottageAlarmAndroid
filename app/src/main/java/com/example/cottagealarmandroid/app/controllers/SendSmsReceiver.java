@@ -1,19 +1,23 @@
-package com.example.cottagealarmandroid.app.service;
+package com.example.cottagealarmandroid.app.controllers;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.Toast;
+import com.example.cottagealarmandroid.app.service.SmsService;
 
-public class SendSms extends BroadcastReceiver{
+public class SendSmsReceiver extends BroadcastReceiver{
     private final static String MY_TAG = "MyTag";
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        String textSMS = intent.getStringExtra(SmsService.SMS_KEY);
+        String textSMS;
+        textSMS = intent.getStringExtra(ProcessingSMS.SENT);
+//        String textSMS = intent.getStringExtra(SmsService.SMS_KEY);
         String serviceText = "Ошибка отправки СМС (" + textSMS + ")";
 
         switch(getResultCode()) {

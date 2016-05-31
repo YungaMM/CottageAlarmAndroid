@@ -3,6 +3,8 @@ package com.example.cottagealarmandroid.app.controllers;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.widget.Toast;
 import com.example.cottagealarmandroid.app.activity.MainActivity;
@@ -10,6 +12,10 @@ import com.example.cottagealarmandroid.app.model.*;
 import com.example.cottagealarmandroid.app.service.SmsService;
 
 public class ProcessingSMS {
+    public static final String SENT = "SENT_SMS";
+    public static final String DELIVERY = "DELIVERY_SMS";
+
+
     private String textSms;
 
     private BasicAlarmProperty basicSett;
@@ -29,8 +35,12 @@ public class ProcessingSMS {
         String phone = devAlarm.getBasicAlarmProperty().getAlarmPhone();
 
         if (!phone.equals("")) {
-            Intent sentIntent = new Intent(MainActivity.SENT);
-            sentIntent.putExtra(SmsService.SMS_KEY, textSms);
+            //Блок регистрации слушателей СМС отправки-получения клиентом
+            Intent sentIntent = new Intent (MainActivity.SENT);
+//            Intent sentIntent = MainActivity.sentIntent;
+            sentIntent.putExtra(SENT, textSms);
+            context.sendBroadcast(sentIntent);
+//            sentIntent.putExtra(SmsService.SMS_KEY, textSms);
             PendingIntent sentPI = PendingIntent.getBroadcast(
                     context, 0, sentIntent, 0);
 
@@ -41,7 +51,8 @@ public class ProcessingSMS {
 
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phone, null, textSms, sentPI, deliveryPI);
-            Toast.makeText(context,textSms,Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, textSms, Toast.LENGTH_SHORT).show();
+
         } else {
             Toast.makeText(context, "Укажите номер телефона устройства", Toast.LENGTH_SHORT).show();
         }
@@ -86,10 +97,10 @@ public class ProcessingSMS {
             } else { //ВКЛ
                 String lc = loadCommand(("РЕЛЕ " + (i + 1) + "=ВКЛ "), (" РЕЛЕ " + (i + 2)));//lc="00-00"
                 int index = lc.indexOf("-");
-                String textMin = lc.substring(0, index-1);
-                String textSec = lc.substring(index+1, index+3);
+                String textMin = lc.substring(0, index - 1);
+                String textSec = lc.substring(index + 1, index + 3);
 
-                smsCommand = SmsCommandsAlarm.createSmsRelay(relay[i],textMin,textSec);
+                smsCommand = SmsCommandsAlarm.createSmsRelay(relay[i], textMin, textSec);
                 relay[i].setSmsCommand(smsCommand);
                 relay[i].setModeControl("1");
             }

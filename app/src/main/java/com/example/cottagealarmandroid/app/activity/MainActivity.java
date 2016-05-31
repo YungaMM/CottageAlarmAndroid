@@ -1,19 +1,14 @@
 package com.example.cottagealarmandroid.app.activity;
 
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TabHost;
-import android.widget.TextView;
 import android.widget.Toast;
 import com.example.cottagealarmandroid.app.R;
 import com.example.cottagealarmandroid.app.activity.fragments.*;
@@ -22,8 +17,8 @@ import com.example.cottagealarmandroid.app.adapters.TabsAdapter;
 import com.example.cottagealarmandroid.app.controllers.AdvancePreferences;
 import com.example.cottagealarmandroid.app.model.DevicesAlarm;
 import com.example.cottagealarmandroid.app.model.Relay;
-import com.example.cottagealarmandroid.app.service.DeliverySms;
-import com.example.cottagealarmandroid.app.service.SendSms;
+import com.example.cottagealarmandroid.app.controllers.DeliverySmsReceiver;
+import com.example.cottagealarmandroid.app.controllers.SendSmsReceiver;
 import com.example.cottagealarmandroid.app.service.SmsService;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,8 +28,9 @@ public class MainActivity extends AppCompatActivity {
 
     public final static String SENT = "SENT_SMS_ACTION";
     public final static String DELIVERED = "DELIVERED_SMS_ACTION";
-    private SendSms sendSms;
-    private DeliverySms deliverySms;
+    private SendSmsReceiver sendSmsReceiver;
+    private DeliverySmsReceiver deliverySmsReceiver;
+public static Intent sentIntent;
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
@@ -53,10 +49,11 @@ public class MainActivity extends AppCompatActivity {
         devAlarm.setRelays(installRelays(devAlarm.COUNT_RELAY));
 
         //Блок регистрации слушателей СМС отправки-получения клиентом
-        sendSms = new SendSms();
-        deliverySms = new DeliverySms();
-        registerReceiver(sendSms, new IntentFilter(SENT));
-        registerReceiver(deliverySms, new IntentFilter(DELIVERED));
+        sentIntent = new Intent (MainActivity.SENT);
+        sendSmsReceiver = new SendSmsReceiver();
+        deliverySmsReceiver = new DeliverySmsReceiver();
+        registerReceiver(sendSmsReceiver, new IntentFilter(SENT));
+        registerReceiver(deliverySmsReceiver, new IntentFilter(DELIVERED));
 
 //        Intent mIntent = new Intent(this, SmsService.class);
 //        mIntent.putExtra(SmsService.SMS_KEY, "Запуск службы");
@@ -67,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         //когда приложение переходит в ожидание или же закрывается
         // то снимаем с регистрации приёмники
-        unregisterReceiver(sendSms);
-        unregisterReceiver(deliverySms);
+//        unregisterReceiver(sendSmsReceiver);
+//        unregisterReceiver(deliverySmsReceiver);
         super.onStop();
     }
 
