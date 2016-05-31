@@ -61,10 +61,10 @@ public class SmsService extends Service {
         NotificationCompat.Builder notifyBuild = new NotificationCompat.Builder(getBaseContext());
         notifyBuild.setContentIntent(pIntent)
                 .setSmallIcon(R.drawable.ic_launcher)
-                .setTicker("Последнее китайское предупреждение!")// текст в строке состояния
+                .setTicker(smsBody)// текст в строке состояния
                 .setWhen(System.currentTimeMillis())
                 .setAutoCancel(true)
-                .setContentTitle("Напоминание") // Заголовок уведомления
+                .setContentTitle("ВНИМАНИЕ!") // Заголовок уведомления
                 .setContentText(smsBody) // Текст уведомления
                 .setNumber(NOTIFY_ID)
                 .setDefaults(Notification.DEFAULT_SOUND |

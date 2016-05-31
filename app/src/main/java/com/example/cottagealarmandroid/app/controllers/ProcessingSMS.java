@@ -1,9 +1,13 @@
 package com.example.cottagealarmandroid.app.controllers;
 
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.telephony.SmsManager;
 import android.widget.Toast;
+import com.example.cottagealarmandroid.app.activity.MainActivity;
 import com.example.cottagealarmandroid.app.model.*;
+import com.example.cottagealarmandroid.app.service.SmsService;
 
 public class ProcessingSMS {
     private String textSms;
@@ -25,8 +29,18 @@ public class ProcessingSMS {
         String phone = devAlarm.getBasicAlarmProperty().getAlarmPhone();
 
         if (!phone.equals("")) {
+            Intent sentIntent = new Intent(MainActivity.SENT);
+            sentIntent.putExtra(SmsService.SMS_KEY, textSms);
+            PendingIntent sentPI = PendingIntent.getBroadcast(
+                    context, 0, sentIntent, 0);
+
+            Intent deliveryIntent = new Intent(MainActivity.SENT);
+            deliveryIntent.putExtra(SmsService.SMS_KEY, textSms);
+            PendingIntent deliveryPI = PendingIntent.getBroadcast(
+                    context, 0, deliveryIntent, 0);
+
             SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phone, null, textSms, null, null);
+            smsManager.sendTextMessage(phone, null, textSms, sentPI, deliveryPI);
             Toast.makeText(context,textSms,Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(context, "Укажите номер телефона устройства", Toast.LENGTH_SHORT).show();

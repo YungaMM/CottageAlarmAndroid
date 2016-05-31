@@ -31,9 +31,8 @@ public class MainActivity extends AppCompatActivity {
     final String LOG_TAG = "myLogs"; //this.getClass().getSimpleName();
     public final static String FILE_NAME = "filename";
 
-    private final static String SENT = "SENT_SMS_ACTION",
-            DELIVERED = "DELIVERED_SMS_ACTION",
-            ISNULL = "Entered, not all data";
+    public final static String SENT = "SENT_SMS_ACTION";
+    public final static String DELIVERED = "DELIVERED_SMS_ACTION";
     private SendSms sendSms;
     private DeliverySms deliverySms;
 
@@ -59,13 +58,15 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(sendSms, new IntentFilter(SENT));
         registerReceiver(deliverySms, new IntentFilter(DELIVERED));
 
-        PendingIntent sentPI = PendingIntent.getBroadcast(this, 0, new Intent(SENT), 0);
-        PendingIntent delivertPI = PendingIntent.getBroadcast(this, 0, new Intent(DELIVERED), 0);
+//        Intent mIntent = new Intent(this, SmsService.class);
+//        mIntent.putExtra(SmsService.SMS_KEY, "Запуск службы");
+//        this.startService(mIntent);
     }
 
     @Override
     protected void onStop() {
-        //когда приложение переходит в ожидание или же закрывается то снимаем с регистрации приёмники
+        //когда приложение переходит в ожидание или же закрывается
+        // то снимаем с регистрации приёмники
         unregisterReceiver(sendSms);
         unregisterReceiver(deliverySms);
         super.onStop();
