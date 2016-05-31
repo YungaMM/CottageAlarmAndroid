@@ -1,6 +1,8 @@
 package com.example.cottagealarmandroid.app.activity;
 
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -20,12 +22,20 @@ import com.example.cottagealarmandroid.app.adapters.TabsAdapter;
 import com.example.cottagealarmandroid.app.controllers.AdvancePreferences;
 import com.example.cottagealarmandroid.app.model.DevicesAlarm;
 import com.example.cottagealarmandroid.app.model.Relay;
+import com.example.cottagealarmandroid.app.service.DeliverySms;
+import com.example.cottagealarmandroid.app.service.SendSms;
 import com.example.cottagealarmandroid.app.service.SmsService;
 
 public class MainActivity extends AppCompatActivity {
     //переменная для чтения ЛОГа
     final String LOG_TAG = "myLogs"; //this.getClass().getSimpleName();
     public final static String FILE_NAME = "filename";
+
+    private final static String SENT = "SENT_SMS_ACTION",
+            DELIVERED = "DELIVERED_SMS_ACTION",
+            ISNULL = "Entered, not all data";
+    private SendSms sendSms;
+    private DeliverySms deliverySms;
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
@@ -42,6 +52,23 @@ public class MainActivity extends AppCompatActivity {
         DevicesAlarm devAlarm = DevicesAlarm.getInstance(); //Инициализируем устройство и устанавливаем его настройки
 
         devAlarm.setRelays(installRelays(devAlarm.COUNT_RELAY));
+
+        //Блок регистрации слушателей СМС отправки-получения клиентом
+        sendSms = new SendSms();
+        deliverySms = new DeliverySms();
+        registerReceiver(sendSms, new IntentFilter(SENT));
+        registerReceiver(deliverySms, new IntentFilter(DELIVERED));
+
+        PendingIntent sentPI = PendingIntent.getBroadcast(this, 0, new Intent(SENT), 0);
+        PendingIntent delivertPI = PendingIntent.getBroadcast(this, 0, new Intent(DELIVERED), 0);
+    }
+
+    @Override
+    protected void onStop() {
+        //когда приложение переходит в ожидание или же закрывается то снимаем с регистрации приёмники
+        unregisterReceiver(sendSms);
+        unregisterReceiver(deliverySms);
+        super.onStop();
     }
 
     private void clearAllProperty() {
